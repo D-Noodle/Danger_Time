@@ -1,0 +1,64 @@
+{
+  "name": "Scratch-Project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+    "start": "nodemon server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cross-env NODE_ENV=production webpack",
+    "frontend": "NODE_ENV=development webpack-dev-server --open",
+    "dev": "concurrently \"cross-env NODE_ENV=development webpack-dev-server --open\" \"nodemon ./server/server.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoonyoungKim025/Scratch-Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JoonyoungKim025/Scratch-Project/issues"
+  },
+  "homepage": "https://github.com/JoonyoungKim025/Scratch-Project#readme",
+  "dependencies": {
+    "axios": "^0.20.0",
+    "body-parser": "^1.19.0",
+    "bootstrap": "^4.5.2",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "node-cron": "^2.0.3",
+    "node-fetch": "^2.6.1",
+    "pg": "^8.3.3",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-bootstrap": "^1.3.0",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.1",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-react": "^7.10.4",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.1.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "concurrently": "^5.3.0",
+    "cross-env": "^7.0.2",
+    "css-loader": "^4.3.0",
+    "isomorphic-fetch": "^2.2.1",
+    "nodemon": "^2.0.4",
+    "redux-devtools-extension": "^2.13.8",
+    "style-loader": "^1.2.1",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  }
+}

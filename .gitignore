@@ -1,5 +1,9 @@
 node_modules
 npm-debug.log
+<<<<<<< HEAD
 .env
 .eslintrc.js
 package-lock.json
+=======
+.eslintrc.js
+>>>>>>> 85e452b4f8086105ebb4c156c0ef42b56b21f40f

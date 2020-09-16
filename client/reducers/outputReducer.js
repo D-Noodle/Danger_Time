@@ -36,7 +36,7 @@ const outputReducer = (state = initialState, action) => {
 
     case types.CHECK_NOW: {
       const newStatusObj = action.payload;
-      console.log(newStatusObj);
+      // console.log(newStatusObj);
       const copyUrlList = state.urlList.slice();
 
       copyUrlList.forEach((item) => {
@@ -44,7 +44,7 @@ const outputReducer = (state = initialState, action) => {
           item.status = newStatusObj.status;
         }
       });
-      console.log(copyUrlList);
+      // console.log(copyUrlList);
       return {
         ...state,
         urlList: copyUrlList,

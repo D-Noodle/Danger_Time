@@ -1,8 +1,9 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import OutputBoxContainer from "./OutputBoxContainer.jsx";
-import InputBox from "../components/InputBox.jsx";
-import * as actions from '../actions/action'
+/* eslint-disable react/prop-types */
+import React from 'react';
+import { connect } from 'react-redux';
+import OutputBoxContainer from './OutputBoxContainer.jsx';
+import InputBox from '../components/InputBox.jsx';
+import * as actions from '../actions/action';
 
 const mapStateToProps = (state) => ({
   currentUser: state.outputs.currentUser,
@@ -13,37 +14,34 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   addURL: (username, url) => dispatch(actions.addURL(username, url)),
-  checkStatus: (statusObj) => dispatch(actions.checkStatus(statusObj))
+  checkStatus: (statusObj) => dispatch(actions.checkStatus(statusObj)),
 });
 
-class MainContainer extends Component {
-  constructor(props) {
-    super(props);
-  }
+const MainContainer = (props) => {
+  // destructure props here ----------
+  const {
+    addURL, currentUser, urlList, url_id, url, checkStatus,
+  } = props;
+  return (
+    <div>
+      <InputBox
+        id="inputboxcontainer"
+        addURL={addURL}
+        currentUser={currentUser}
+      />
 
-  render() {
-    // destructure props here ----------
-    const { addURL, currentUser } = this.props;
-    return (
-      <div>
-          <InputBox id='inputboxcontainer'
-          addURL={ addURL }
-          currentUser={ currentUser }
-          />
-
-        <div id='outputboxcontainer' >
-          <OutputBoxContainer
+      <div id="outputboxcontainer">
+        <OutputBoxContainer
             // OUTPUT STATE
-            urlList={this.props.urlList}
-            url_id={this.props.url_id}
-            url={this.props.url} 
+          urlList={urlList}
+          url_id={url_id}
+          url={url}
             // OUTPUT DISPATCH ACTION
-            checkStatus={this.props.checkStatus}
-            />
-        </div>
+          checkStatus={checkStatus}
+        />
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);

@@ -1,10 +1,9 @@
 import React from "react";
 import { render } from "react-dom";
-import App from "./App.jsx";
-import thunk from 'redux-thunk'
-import './style.css'
-
 import { Provider } from "react-redux";
+import App from "./App.jsx";
+import style from './style.css';
+
 import store from "./store";
 
 

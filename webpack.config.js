@@ -1,6 +1,4 @@
 const path = require('path');
-const webpack = require('webpack');
-
 
 module.exports = {
   mode: 'development',
@@ -17,10 +15,10 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react']
+            presets: ['@babel/preset-env', '@babel/preset-react'],
           },
         },
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.css$/,
@@ -36,7 +34,9 @@ module.exports = {
     contentBase: path.resolve(__dirname, './client'),
     port: 8080,
     proxy: {
-      '/api': 'http://localhost:3000',
+      '/api': 'http://localhost:3333',
+      '/main': 'http://localhost:3333',
+      '/auth': 'http://localhost:3333',
     },
     publicPath: '/build/',
   },

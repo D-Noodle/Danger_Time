@@ -9,7 +9,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addURL: (urlObj) => dispatch(actions.addURL(urlObj)),
+  addURL: (username, url) => dispatch(actions.addURL(username, url))
 });
 
 class MainContainer extends Component {
@@ -18,11 +18,13 @@ class MainContainer extends Component {
   }
 
   render() {
+    // destructure props here ----------
+    const { addURL, currentUser } = this.props;
     return (
       <div>
-          <InputBox 
-          dispatchAddUrl={this.props.addURL}
-          currentUser={this.props.currentUser}
+          <InputBox id='inputboxcontainer'
+          addURL={ addURL }
+          currentUser={ currentUser }
           />
 
         <div id='outputboxcontainer' >

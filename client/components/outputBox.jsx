@@ -28,6 +28,7 @@ class OutputBox extends Component {
       });
   }
 
+  // 3 buttons: status (current), set interval on API status, historical data
   render() {
     return (
       <div id="boxes">
@@ -35,7 +36,7 @@ class OutputBox extends Component {
           url: {this.props.url}
           status: {this.props.status} 
           <button onClick={this.checkNow}>check now</button>
-          <button>uptime</button>
+
         </div>
       </div> 
     );

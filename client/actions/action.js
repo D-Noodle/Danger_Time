@@ -5,6 +5,8 @@ export const addURL = (urlObj) => ({
   payload: urlObj,
 });
 
+
+// GET UPDATED API STATUS 
 export const checkNow = (statusObj) => (
   console.log("we here"),
   {
@@ -12,3 +14,23 @@ export const checkNow = (statusObj) => (
     payload: statusObj,
   }
 );
+
+checkNow() {
+  return axios
+    .post(
+      "http://localhost:3000/main/checkNow",
+      {
+        url_id: this.props.url_id,
+        url: this.props.url,
+      }
+    )
+    .then((status) => this.props.dispatchCheckStatus(
+      {
+        status: status.data.status,
+        url_id: this.props.url_id,
+      })
+    )
+    .catch((err) => {
+      console.error(err.messsage);
+    });
+}

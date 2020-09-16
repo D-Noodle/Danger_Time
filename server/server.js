@@ -1,8 +1,4 @@
 const express = require('express');
-<<<<<<< HEAD
-const bodyparser = require('body-parser');
-=======
->>>>>>> 2acc4eefd60849528f795b16252dc7895a1e2b11
 const cors = require('cors');
 const app = express();
 const PORT = 3000;
@@ -36,7 +32,7 @@ app.use('/auth', authrouter);
 
 // handle all other requests
 // receive request for /main/historicaldata, /main/addURL, /main/interval, /main/checknow, then direct to /mainrouter
-app.use('/main', mainrouter);
+app.use('/main', (req, res)=> res.status(200).send('what'));
 
 // request to '/', redirect to /authrouter (same as request to /register)
 app.use('/', authrouter);

@@ -11,7 +11,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  checkStatus: (statusObj) => dispatch(actions.checkNow(statusObj)),
+  checkStatus: (statusObj) => dispatch(actions.checkStatus(statusObj)),
 });
 
 
@@ -27,7 +27,7 @@ class OutputBoxContainer extends Component {
         url_id={index.url_id}
         url={index.url}
         status={ index.status }
-        dispatchCheckStatus={this.props.checkStatus}
+        checkStatus={this.props.checkStatus}
       />
     )
 

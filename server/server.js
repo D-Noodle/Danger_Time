@@ -3,6 +3,7 @@ const cors = require('cors');
 
 const app = express();
 const PORT = 3000;
+const path = require('path');
 
 /* required routers */
 const authrouter = require('./router/authrouter');
@@ -20,6 +21,8 @@ app.use(express.urlencoded({ extended: true }));
 // use express.json instead of bodyparser (bodyparser is deprecated)
 app.use(express.json());
 
+app.use(express.static(path.resolve(__dirname, './../client')));
+
 app.use(cors({
   origin: [
     'http://localhost:8080',
@@ -32,7 +35,8 @@ app.use(cors({
 app.use('/auth', authrouter);
 
 // handle all other requests
-// receive request for /main/historicaldata, /main/addURL, /main/interval, /main/checknow, then direct to /mainrouter
+// receive request for
+// /main/historicaldata, /main/addURL, /main/interval, /main/checknow, then direct to /mainrouter
 app.use('/main', mainrouter);
 
 // request to '/', redirect to /authrouter (same as request to /register)

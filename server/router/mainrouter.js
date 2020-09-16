@@ -37,7 +37,7 @@ router.post('/addURL',
   });
 
 /* Once a URL is added, this route handles the functionality of clicking checkNow to check status at any time */
-router.post('/checkNow', maincontroller.pingUrl, maincontroller.addStatus, (req, res) => {
+router.post('/checkStatus', maincontroller.pingUrl, maincontroller.addStatus, (req, res) => {
   res.status(200).json({ status: res.locals.status });
 });
 

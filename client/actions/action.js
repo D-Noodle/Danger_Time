@@ -22,9 +22,9 @@ export function addURL (username, url) {
 };
 
 // GET UPDATED API URL STATUS 
-export const checkStatus = (statusObj) => (dispatch) => {
+export const checkStatus = (url_Id) => (dispatch) => {
   // **INSERT API URL**
-    axios.post('http://localhost:3000/main')
+    axios.post('http://localhost:3000/main/checkStatus', {url_Id: url_Id})
       .then((result)=>{
         console.log('inside checkStatus action POST')
         dispatch({
@@ -34,8 +34,6 @@ export const checkStatus = (statusObj) => (dispatch) => {
       })
       .catch(err => console.log('checkStatus action ERROR', err))
   }
-
-
 
 
 const checkStatusStarted = () => {

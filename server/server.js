@@ -32,7 +32,7 @@ app.use('/auth', authrouter);
 
 // handle all other requests
 // receive request for /main/historicaldata, /main/addURL, /main/interval, /main/checknow, then direct to /mainrouter
-app.use('/main', (req, res)=> res.status(200).send('what'));
+app.use('/main', mainrouter);
 
 // request to '/', redirect to /authrouter (same as request to /register)
 app.use('/', authrouter);

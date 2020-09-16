@@ -22,6 +22,7 @@ const initialState = {
 const outputReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.ADD_URL: {
+      console.log(action.payload);
       const newURLobj = action.payload;
       const copyUrlList = state.urlList.slice();
       copyUrlList.push(newURLobj);

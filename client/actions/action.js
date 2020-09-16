@@ -1,9 +1,26 @@
 import * as types from '../constants/actionTypes';
+import axios from 'axios';
 
-export const addURL = (urlObj) => ({
-  type: types.ADD_URL,
-  payload: urlObj,
-});
+export function addURL (username, url) {
+  return function dispatchFetchToStore (dispatch) {
+    axios.post('http://localhost:3333/main/addURL', `${url}`)
+      .then((result)=>{
+        console.log("YOO!!")
+        dispatch({
+          type: types.FINISHED_URL_ADD,
+          payload: {
+            username,
+            url_id: result.data.url_id,
+            status: result.data.status,
+            url,
+          }
+        });
+      })
+      .catch(err=>
+        console.log('err onsubform', err)
+      )
+  }
+};
 
 export const checkNow = (statusObj) => (
   console.log("we here"),
@@ -12,3 +29,8 @@ export const checkNow = (statusObj) => (
     payload: statusObj,
   }
 );
+
+export const finishedUrlAdd = (addedUrlObj) => ({
+  
+  
+});

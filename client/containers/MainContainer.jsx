@@ -9,7 +9,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addURL: (urlObj) => dispatch(actions.addURL(urlObj)),
+  addURL: (username, url) => dispatch(actions.addURL(username, url)),
 });
 
 const MainContainer = (props) => {

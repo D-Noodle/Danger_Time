@@ -20,20 +20,21 @@ const initialState = {
 };
 
 const outputReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case types.ADD_URL: {
-      console.log(action.payload);
-      const newURLobj = action.payload;
-      const copyUrlList = state.urlList.slice();
-      copyUrlList.push(newURLobj);
-      const newStatus = action.payload.status;
+  const { urlList } = state;
 
-      return {
-        ...state,
-        urlList: copyUrlList,
-        status: newStatus,
-      };
-    }
+  switch (action.type) {
+    // case types.ADD_URL:
+
+    //   const newURLobj = action.payload;
+    //   let copyUrlList = state.urlList.slice();
+    //   copyUrlList.push(newURLobj);
+
+    //   const newStatus = action.payload.status;
+
+    //   return {
+    //     ...state,
+    //     status: newStatus,
+    //   };
 
     case types.CHECK_NOW: {
       const newStatusObj = action.payload;
@@ -51,6 +52,16 @@ const outputReducer = (state = initialState, action) => {
         urlList: copyUrlList,
       };
     }
+
+    case types.FINISHED_URL_ADD:
+      // copy the urlList and then add the new action payload (url, url_id, status, and username)
+      urlList = state.urlList.slice();
+      urlList.push(action.payload);
+
+      return {
+        ...state,
+        urlList,
+      };
 
     default:
       return state;

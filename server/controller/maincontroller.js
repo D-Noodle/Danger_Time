@@ -11,9 +11,9 @@ const fetch = require('node-fetch');
 
 
 maincontroller.saveUrl = (req, res, next) => {
-  const urlBody = req.body;
-  const urlArray = Object.keys(urlBody);
-  const url = urlArray[0];
+  const { url } = req.body;
+  // const urlArray = Object.keys(urlBody);
+  // const url = urlArray[0];
   res.locals.url = url;
 
   const userId = 42; /* ITERATION OPTION: this should pull from state that's updated from DB */

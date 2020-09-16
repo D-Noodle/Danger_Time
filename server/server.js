@@ -1,11 +1,8 @@
 const express = require('express');
-<<<<<<< HEAD
 const bodyparser = require('body-parser');
-=======
->>>>>>> 2acc4eefd60849528f795b16252dc7895a1e2b11
 const cors = require('cors');
 const app = express();
-const PORT = 3000;
+const PORT = 3333;
 
 /*required routers*/
 const authrouter = require('./router/authrouter');
@@ -26,7 +23,7 @@ app.use(express.json());
 app.use(cors({
   origin: [
     'http://localhost:8080',
-    'http://localhost:3000',
+    'http://localhost:3333',
   ]
 }));
 

@@ -55,10 +55,12 @@ const outputReducer = (state = initialState, action) => {
       // copy the urlList and then add the new action payload (url, url_id, status, and username)
       const copyUrlList = state.urlList.slice();
       copyUrlList.push(action.payload);
+      const { status } = action.payload;
 
       return {
         ...state,
         urlList: copyUrlList,
+        status,
       };
     }
 

@@ -26,9 +26,9 @@ app.use(express.static(path.resolve(__dirname, './../client')));
 app.use(cors({
   origin: [
     'http://localhost:8080',
-    // 'http://localhost:3000',
+    'http://localhost:3000',
     'http://localhost:3333',
-  ]
+  ],
 }));
 
 // handle authentication requests

@@ -1,6 +1,7 @@
 /* eslint-disable prefer-destructuring */
 const path = require('path');
 const fs = require('fs');
+const axios = require('axios');
 
 const maincontroller = {};
 const fetch = require('node-fetch');
@@ -12,8 +13,6 @@ const db = require('../db/databaseIndex.js');
 
 maincontroller.saveUrl = (req, res, next) => {
   const { url } = req.body;
-  // const urlArray = Object.keys(urlBody);
-  // const url = urlArray[0];
   res.locals.url = url;
 
   const userId = 42; /* ITERATION OPTION: this should pull from state that's updated from DB */
@@ -34,15 +33,13 @@ maincontroller.saveUrl = (req, res, next) => {
 
 /* Checks to see the status code of the URL we added depending on the response we get back */
 maincontroller.pingUrl = (req, res, next) => {
-  console.log('we PING')
+  console.log('we PING');
   let check;
   if (!res.locals.url) check = req.body.url;
   else check = res.locals.url;
   console.log(check);
-  fetch(check)// recieved from state
-    .then((data) => data.json())
+  axios.get(check)
     .then((response) => {
-      console.log(response);
       if (typeof response === 'object') {
         res.locals.url_id = req.body.url_id;
         res.locals.status = '200'; // We assumed that it is status 200 if we receive an object, this could be more specific
@@ -59,9 +56,9 @@ maincontroller.pingUrl = (req, res, next) => {
     }));
 };
 
-/* Adds URL attributes to Postgres, but also sends back status to the client so that we can keep track in state */
+/* Adds URL attributes to Postgres, but also sends back status to the client
+so that we can keep track in state */
 maincontroller.addStatus = (req, res, next) => {
-  // console.log('JOOOOOON')
   if (res.locals.db_url_id) res.locals.url_id = res.locals.db_url_id;
   const time = Date.now();
   const urlId = res.locals.url_id;

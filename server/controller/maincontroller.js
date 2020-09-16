@@ -12,8 +12,6 @@ const db = require('../db/databaseIndex.js');
 
 maincontroller.saveUrl = (req, res, next) => {
   const { url } = req.body;
-  console.log('REQ BODY', req.body);
-  // const urlBody = req.body;
   // const urlArray = Object.keys(urlBody);
   // const url = urlArray[0];
   res.locals.url = url;
@@ -36,6 +34,7 @@ maincontroller.saveUrl = (req, res, next) => {
 
 /* Checks to see the status code of the URL we added depending on the response we get back */
 maincontroller.pingUrl = (req, res, next) => {
+  console.log('we PING')
   let check;
   if (!res.locals.url) check = req.body.url;
   else check = res.locals.url;

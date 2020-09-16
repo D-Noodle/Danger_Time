@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 
 const app = express();
-const PORT = 3000;
+const PORT = 3333;
 const path = require('path');
 
 /* required routers */
@@ -26,8 +26,9 @@ app.use(express.static(path.resolve(__dirname, './../client')));
 app.use(cors({
   origin: [
     'http://localhost:8080',
-    'http://localhost:3000',
-  ],
+    // 'http://localhost:3000',
+    'http://localhost:3333',
+  ]
 }));
 
 // handle authentication requests

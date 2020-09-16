@@ -20,8 +20,6 @@ const initialState = {
 };
 
 const outputReducer = (state = initialState, action) => {
-  const { urlList } = state;
-
   switch (action.type) {
     // case types.ADD_URL:
 
@@ -53,15 +51,16 @@ const outputReducer = (state = initialState, action) => {
       };
     }
 
-    case types.FINISHED_URL_ADD:
+    case types.FINISHED_URL_ADD: {
       // copy the urlList and then add the new action payload (url, url_id, status, and username)
-      urlList = state.urlList.slice();
-      urlList.push(action.payload);
+      const copyUrlList = state.urlList.slice();
+      copyUrlList.push(action.payload);
 
       return {
         ...state,
-        urlList,
+        urlList: copyUrlList,
       };
+    }
 
     default:
       return state;

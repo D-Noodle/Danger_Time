@@ -34,9 +34,9 @@ module.exports = {
     contentBase: path.resolve(__dirname, './client'),
     port: 8080,
     proxy: {
-      '/api': 'http://localhost:3000',
-      '/main': 'http://localhost:3000',
-      '/auth': 'http://localhost:3000',
+      '/api': 'http://localhost:3333',
+      '/main': 'http://localhost:3333',
+      '/auth': 'http://localhost:3333',
     },
     publicPath: '/build/',
   },

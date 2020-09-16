@@ -35,20 +35,9 @@ router.post('/addURL',
     res.sendStatus(200);
   });
 
-// router.post('/addURL',
-// maincontroller.saveUrl,
-// maincontroller.pingUrl,
-// maincontroller.addStatus,
-// (req, res) => {
-//   res.status(200).json({
-//     status: res.locals.status,
-//     url_id: res.locals.url_id,
-//   });
-// });
-
-/* Once a URL is added, this route handles the functionality of
-clicking checkNow to check status at any time */
-router.post('/checkNow',
+/* Once a URL is added, this route handles the functionality
+of clicking checkNow to check status at any time */
+router.post('/checkStatus',
   maincontroller.pingUrl,
   maincontroller.addStatus,
   (req, res) => {
@@ -68,7 +57,7 @@ B)all the status codes */
 // getData 5 -query the database for times and status code for url given in req.body,
 // then save to res.locals and send back a res contiaing res.locals
 
-// outer.get('/historicalData', maincontroller.getData, (req, res) => {
+// router.get('/historicalData', maincontroller.getData, (req, res) => {
 //   res.status(200).send('test');
 // });
 

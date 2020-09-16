@@ -1,17 +1,15 @@
 const express = require('express');
-<<<<<<< HEAD
-const bodyparser = require('body-parser');
-=======
->>>>>>> 2acc4eefd60849528f795b16252dc7895a1e2b11
 const cors = require('cors');
-const app = express();
-const PORT = 3000;
 
-/*required routers*/
+const app = express();
+const PORT = 3333;
+const path = require('path');
+
+/* required routers */
 const authrouter = require('./router/authrouter');
 const mainrouter = require('./router/mainrouter');
 
-/*CORS middleware to prevent CORS policy during POST*/
+/* CORS middleware to prevent CORS policy during POST */
 app.use(cors());
 
 /**
@@ -20,13 +18,16 @@ app.use(cors());
  * https://www.npmjs.com/package/body-parser
  */
 app.use(express.urlencoded({ extended: true }));
+// use express.json instead of bodyparser (bodyparser is deprecated)
 app.use(express.json());
 
+app.use(express.static(path.resolve(__dirname, './../client')));
 
 app.use(cors({
   origin: [
     'http://localhost:8080',
-    'http://localhost:3000',
+    // 'http://localhost:3000',
+    'http://localhost:3333',
   ]
 }));
 
@@ -35,7 +36,8 @@ app.use(cors({
 app.use('/auth', authrouter);
 
 // handle all other requests
-// receive request for /main/historicaldata, /main/addURL, /main/interval, /main/checknow, then direct to /mainrouter
+// receive request for
+// /main/historicaldata, /main/addURL, /main/interval, /main/checknow, then direct to /mainrouter
 app.use('/main', mainrouter);
 
 // request to '/', redirect to /authrouter (same as request to /register)

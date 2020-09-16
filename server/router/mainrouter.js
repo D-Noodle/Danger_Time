@@ -53,7 +53,7 @@ A)all the times URL was pinged
 B)all the status codes */
 // getData 5 -query the database for times and status code for url given in req.body, then save to res.locals and send back a res contiaing res.locals
 
-// outer.get('/historicalData', maincontroller.getData, (req, res) => {
+// router.get('/historicalData', maincontroller.getData, (req, res) => {
 //   res.status(200).send('test');
 // });
 

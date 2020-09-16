@@ -4,9 +4,8 @@ import axios from 'axios';
 // ADD API URL TO DATABASE
 export function addURL (username, url) {
   return function dispatchFetchToStore (dispatch) {
-    axios.post('http://localhost:3333/main/addURL', `${url}`)
+    axios.post('http://localhost:3333/main/addURL', {url})
       .then((result)=>{
-        console.log('inside addURL action POST')
         dispatch({
           type: types.FINISHED_URL_ADD,
           payload: {

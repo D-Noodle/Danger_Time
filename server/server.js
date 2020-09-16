@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const PORT = 3000;
+const PORT = 3333;
 
 /*required routers*/
 const authrouter = require('./router/authrouter');
@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(cors({
   origin: [
     'http://localhost:8080',
-    'http://localhost:3000',
+    'http://localhost:3333',
   ]
 }));
 

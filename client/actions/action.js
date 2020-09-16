@@ -3,9 +3,8 @@ import axios from 'axios';
 
 export function addURL (username, url) {
   return function dispatchFetchToStore (dispatch) {
-    axios.post('http://localhost:3333/main/addURL', `${url}`)
+    axios.post('http://localhost:3333/main/addURL', {url})
       .then((result)=>{
-        console.log("YOO!!")
         dispatch({
           type: types.FINISHED_URL_ADD,
           payload: {

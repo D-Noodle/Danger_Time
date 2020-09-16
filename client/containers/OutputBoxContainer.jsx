@@ -4,30 +4,33 @@ import * as actions from "../actions/action.js";
 import OutputBox from "../components/OutputBox";
 
 
-const mapStateToProps = (state) => ({
-  urlList: state.outputs.urlList,
-  url_id: state.outputs.urlList[0].url_id,
-  url: state.outputs.urlList[0].url,
-});
+// const mapStateToProps = (state) => ({
+//   urlList: state.outputs.urlList,
+//   url_id: state.outputs.urlList[0].url_id,
+//   url: state.outputs.urlList[0].url,
+// });
 
-const mapDispatchToProps = (dispatch) => ({
-  checkStatus: (statusObj) => dispatch(actions.checkStatus(statusObj)),
-});
+// const mapDispatchToProps = (dispatch) => ({
+//   checkStatus: (statusObj) => dispatch(actions.checkStatus(statusObj)),
+// });
 
+const OutputBoxContainer = (props) => {
 
-class OutputBoxContainer extends Component {
-  constructor(props) {
-    super(props);
-  }
+// class OutputBoxContainer extends Component {
+//   constructor(props) {
+//     super(props);
+//   }
 
-  render() {
-    const childrenList = this.props.urlList.map( (index) => 
+    const childrenList = props.urlList.map((el, idx) => 
       <OutputBox
-        key={index.url_id}
-        url_id={index.url_id}
-        url={index.url}
-        status={ index.status }
-        checkStatus={this.props.checkStatus}
+      // component identifier
+        key={idx}
+      // STATE
+        url_id={el.url_id}
+        url={el.url}
+        status={el.status}
+      // DISPATCH ACTION
+        checkStatus={props.checkStatus}
       />
     )
 
@@ -37,6 +40,5 @@ class OutputBoxContainer extends Component {
       </div>
     );
   }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(OutputBoxContainer);
+export default OutputBoxContainer

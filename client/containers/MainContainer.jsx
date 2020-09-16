@@ -6,10 +6,14 @@ import * as actions from '../actions/action'
 
 const mapStateToProps = (state) => ({
   currentUser: state.outputs.currentUser,
+  urlList: state.outputs.urlList,
+  url_id: state.outputs.urlList[0].url_id,
+  url: state.outputs.urlList[0].url,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addURL: (username, url) => dispatch(actions.addURL(username, url))
+  addURL: (username, url) => dispatch(actions.addURL(username, url)),
+  checkStatus: (statusObj) => dispatch(actions.checkStatus(statusObj))
 });
 
 class MainContainer extends Component {
@@ -28,7 +32,14 @@ class MainContainer extends Component {
           />
 
         <div id='outputboxcontainer' >
-          <OutputBoxContainer  />
+          <OutputBoxContainer
+            // OUTPUT STATE
+            urlList={this.props.urlList}
+            url_id={this.props.url_id}
+            url={this.props.url} 
+            // OUTPUT DISPATCH ACTION
+            checkStatus={this.props.checkStatus}
+            />
         </div>
       </div>
     );

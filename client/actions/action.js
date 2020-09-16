@@ -1,34 +1,51 @@
-import * as types from '../constants/actionTypes';
 import axios from 'axios';
+import * as types from '../constants/actionTypes';
 
-//this is using thunk when it gets to store. Thunk receives the first dispatch, which is a function with the argument 'dispatch' passed in. It recognizes this and performs the async action within, which, in this case, is a fetch request to the url passed in.
+// ADD API URL TO DATABASE
 export const addURL = (username, url) => (dispatch) => {
-  axios.post('http://localhost:3333/main/addURL', {url})
-    .then((result)=>{
+  axios.post('/main/addURL', { url })
+    .then((result) => {
       dispatch({
         type: types.FINISHED_URL_ADD,
         payload: {
           username,
+          url,
           url_id: result.data.url_id,
           status: result.data.status,
-          url,
-        }
+        },
       });
     })
-    .catch(err=>
-      console.log('err onsubform', err)
-    )
+    .catch((err) => console.log('addURL action ERROR', err));
 };
 
-export const checkNow = (statusObj) => (
-  console.log("we here"),
-  {
-    type: types.CHECK_NOW,
-    payload: statusObj,
-  }
-);
+// GET UPDATED API URL STATUS
+export const checkStatus = (url_Id) => (dispatch) => {
+  // **INSERT API URL**
+  axios.post('/main/checkStatus', { url_Id })
+    .then((result) => {
+      console.log('inside checkStatus action POST');
+      dispatch({
+        type: types.FINISHED_URL_ADD,
+        payload: {},
+      });
+    })
+    .catch((err) => console.log('checkStatus action ERROR', err));
+};
+
+const checkStatusStarted = () => ({
+  type: types.CHECK_STATUS_STARTED,
+  payload: true,
+});
+
+const checkStatusFinished = () => ({
+  type: types.CHECK_STATUS_FINISHED,
+  payload: true,
+});
+
+const checkStatusError = () => ({
+  type: types.CHECK_STATUS_ERROR,
+  payload: true,
+});
 
 export const finishedUrlAdd = (addedUrlObj) => ({
-  
-  
 });

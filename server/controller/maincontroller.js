@@ -1,14 +1,14 @@
 /* eslint-disable prefer-destructuring */
 const path = require('path');
 const fs = require('fs');
+
 const maincontroller = {};
+const fetch = require('node-fetch');
 const db = require('../db/databaseIndex.js');
 
 /* Need to import node library if we want to use fetch in the backend */
-const fetch = require('node-fetch');
 
 /* REQUEST/RESPONSE MIDDLEWARE */
-
 
 maincontroller.saveUrl = (req, res, next) => {
   const { url } = req.body;
@@ -17,7 +17,7 @@ maincontroller.saveUrl = (req, res, next) => {
   res.locals.url = url;
 
   const userId = 42; /* ITERATION OPTION: this should pull from state that's updated from DB */
-  
+
   const updateUrlTable = 'INSERT INTO url (user_id, url) VALUES ($1, $2) RETURNING url_id';
   db.query(updateUrlTable, [userId, `${url}`])
     .then((saved) => {
@@ -32,18 +32,20 @@ maincontroller.saveUrl = (req, res, next) => {
     }));
 };
 
-/*Checks to see the status code of the URL we added depending on the response we get back */
+/* Checks to see the status code of the URL we added depending on the response we get back */
 maincontroller.pingUrl = (req, res, next) => {
+  console.log('we PING')
   let check;
   if (!res.locals.url) check = req.body.url;
   else check = res.locals.url;
+  console.log(check);
   fetch(check)// recieved from state
     .then((data) => data.json())
     .then((response) => {
       console.log(response);
-      if (typeof response === 'object') { 
+      if (typeof response === 'object') {
         res.locals.url_id = req.body.url_id;
-        res.locals.status = '200'; //We assumed that it is status 200 if we receive an object, this could be more specific 
+        res.locals.status = '200'; // We assumed that it is status 200 if we receive an object, this could be more specific
         return next();
       }
       res.locals.status = '400';
@@ -117,7 +119,7 @@ maincontroller.saveStatus = (updatedUrlArr) => {
   }
 };
 
-/*Readme/Resources */
+/* Readme/Resources */
 
 /* Timestamp for psql
 https://www.sqlservertutorial.net/sql-server-date-functions/sql-server-current_time-function/

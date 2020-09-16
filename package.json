@@ -1,11 +1,14 @@
 {
   "name": "Scratch-Project",
+  "jest": {
+    "verbose": true
+  },
   "version": "1.0.0",
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
     "start": "nodemon server/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --verbose",
     "build": "cross-env NODE_ENV=production webpack",
     "frontend": "NODE_ENV=development webpack-dev-server --open",
     "dev": "concurrently \"cross-env NODE_ENV=development webpack-dev-server --open\" \"nodemon ./server/server.js\""
@@ -61,6 +64,7 @@
     "eslint-plugin-react": "^7.20.6",
     "eslint-plugin-react-hooks": "^4.1.2",
     "isomorphic-fetch": "^2.2.1",
+    "jest": "^26.4.2",
     "nodemon": "^2.0.4",
     "redux-devtools-extension": "^2.13.8",
     "style-loader": "^1.2.1",

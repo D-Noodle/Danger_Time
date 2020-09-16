@@ -1,4 +1,3 @@
-
 import * as types from '../constants/actionTypes';
 
 
@@ -23,21 +22,22 @@ const initialState = {
 
 const outputReducer = (state = initialState, action) => {
   
+  const urlList = state.urlList;
+
   switch (action.type) {
 
-    case types.ADD_URL:
+    // case types.ADD_URL:
 
-      const newURLobj = action.payload;
-      let copyUrlList = state.urlList.slice();
-      copyUrlList.push(newURLobj);
+    //   const newURLobj = action.payload;
+    //   let copyUrlList = state.urlList.slice();
+    //   copyUrlList.push(newURLobj);
       
-      const newStatus = action.payload.status;
+    //   const newStatus = action.payload.status;
 
-      return {
-        ...state,
-        urlList: copyUrlList,
-        status: newStatus,
-      };
+    //   return {
+    //     ...state,
+    //     status: newStatus,
+    //   };
 
    
     case types.CHECK_NOW:
@@ -55,6 +55,16 @@ const outputReducer = (state = initialState, action) => {
       return {
         ...state,
         urlList: copyUrlList,
+      };
+
+      case types.FINISHED_URL_ADD:
+        // copy the urlList and then add the new action payload (url, url_id, status, and username)
+        urlList = state.urlList.slice();
+        urlList.push(action.payload);
+        
+      return {
+        ...state,
+        urlList,
       };
 
     default:

@@ -1,43 +1,45 @@
-const path = require('path');
-const webpack = require('webpack');
-
+const path = require("path");
+const webpack = require("webpack");
 
 module.exports = {
-  mode: 'development',
-  entry: './client/index.js',
+  mode: "development",
+  entry: "./client/index.js",
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'build'),
-    publicPath: '/',
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "build"),
+    publicPath: "/",
   },
   module: {
     rules: [
       {
         test: /\.jsx?/,
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react']
+            presets: ["@babel/preset-env", "@babel/preset-react"],
           },
         },
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        use: ["style-loader", "css-loader"],
       },
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: [".js", ".jsx"],
   },
   devServer: {
     historyApiFallback: true,
-    contentBase: path.resolve(__dirname, './client'),
+    contentBase: path.resolve(__dirname, "./client"),
     port: 8080,
     proxy: {
-      '/api': 'http://localhost:3000',
+      "/api": "http://localhost:3000",
+      "/main": "http://localhost:3000",
+      "/auth": "http://localhost:3000",
+      "/data": "http://localhost:3000",
     },
-    publicPath: '/build/',
+    publicPath: "/build/",
   },
 };

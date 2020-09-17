@@ -32,6 +32,9 @@ app.use(cors({
   ],
 }));
 
+// request to '/', redirect to /authrouter (same as request to /register)
+app.use('/', authrouter);
+
 // handle authentication requests
 // server recieves request to /auth/login or /auth/register, then direct to /authrouter
 app.use('/auth', authrouter);

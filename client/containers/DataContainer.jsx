@@ -44,10 +44,12 @@ class DataContainer extends Component {
 
   render() {
     //conditional rendering of url data viz boxes, based on which user is logged in
-    const { graphData } = this.props;
+    const { graphData, urlList } = this.props;
     return (
       <div id="graph-container">
-        HELLO!!!!
+        <h2 id="graph-container-title">
+          Status from API Database
+        </h2>
         <Graph graphData={graphData} />
       </div>
     );

@@ -26,6 +26,29 @@ h1 {
   border-radius: 3px;
 }
 
+h2 {
+  display: flex;
+  align-self: flex-start;
+  font-family: Arial, Helvetica, sans-serif;
+  /* background-color: #C44536; */
+  /* color: #EDDDD4; */
+  padding: 0.8rem 0.7rem 0.8rem 0.7rem;
+  width: 14.5rem;
+  border-radius: 3px;
+}
+
+h3 {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  font-family: Arial, Helvetica, sans-serif;
+  /* background-color: #C44536; */
+  /* color: #EDDDD4; */
+  padding: 0.8rem 0.7rem 0.8rem 0.7rem;
+  width: 14.5rem;
+  border-radius: 3px;
+}
+
 #outputBoxContainer {
   display: flex;
   justify-content: center;
@@ -101,11 +124,16 @@ button:hover {
 }
 
 .graph {
+  display: flex;
+  flex-direction: column;
   background-color: #EDDDD4;
   width: 30rem;
   border-radius: 3px;
   padding: 1rem;
   color: #283D3B;
+  /* display: inline-flex;
+   align-items: center; 
+  justify-content: center; */
   /* border: 1rem solid #197278; */
 }
 

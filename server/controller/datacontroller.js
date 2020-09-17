@@ -38,7 +38,10 @@ datacontroller.getData = (req, res, next) => {
   db.query(selectStatus, params)
     //will receive an array of objects (called row), each object will correspond to a row, save to res.locals.rows
     .then((data) => {
-      // console.log("datacontroller query res", data);
+      console.log("datacontroller query res", data);
+      for (const ping of data.rows) {
+        ping.time = Date(ping.time).slice(3,24) // converts time to readable date and time
+      }
       res.locals.data = data;
       return next();
     })

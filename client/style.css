@@ -37,6 +37,17 @@ h1 {
   width: 20rem;
 }
 
+.pie-chart-title {
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  color: #EDDDD4;
+  margin: 5rem auto 3rem auto;
+  background-color: #283D3B;
+  padding: 0.8rem 0rem 0.8rem 0rem;
+  border-radius: 3px;
+  width: 13rem;
+}
+
 #outputBoxContainer {
   display: flex;
   justify-content: center;

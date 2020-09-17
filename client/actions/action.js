@@ -73,3 +73,8 @@ export const loadGraphData = (url_id) => (dispatch) => {
       console.log('error message', error);
     });
 };
+
+export const getStatusArr = (e) => ({
+  type: types.GET_STATUS_ARR,
+  payload: e,
+});

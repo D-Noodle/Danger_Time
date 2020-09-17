@@ -1,21 +1,23 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import axios from "axios";
-import * as actions from "../actions/action";
-import { Graph } from "../components/graph/graph";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import axios from 'axios';
+import * as actions from '../actions/action';
+import { Graph } from '../components/graph/graph';
+import { PieChart } from '../components/PieChart';
 
-//this component sits on top of maincontainer or app and will hold graphs
+// this component sits on top of maincontainer or app and will hold graphs
 
 const mapStateToProps = (state) => ({
   currentUser: state.outputs.currentUser,
   urlList: state.outputs.urlList,
   graphData: state.outputs.graphData,
 });
-//dummy url-id: 75 (in database)
+// dummy url-id: 75 (in database)
 const url_id = 75;
 
 const mapDispatchToProps = (dispatch) => ({
   loadGraphData: (url_id) => dispatch(actions.loadGraphData(url_id)),
+  getStatusArr: (e) => dispatch(actions.getStatusArr(e)),
 });
 
 class DataContainer extends Component {
@@ -23,12 +25,12 @@ class DataContainer extends Component {
     super(props);
   }
 
-  //when user logs in, this component will render graph for first url listed in output container
+  // when user logs in, this component will render graph for first url listed in output container
   // pull data from database for first url first, and then
-  //send to backend url-id, and how many rows of data we want to retrieve
-  //backend will send back
+  // send to backend url-id, and how many rows of data we want to retrieve
+  // backend will send back
   componentDidMount() {
-    //axios request moved to actions/action.js
+    // axios request moved to actions/action.js
     // axios
     //   .post("/main/data", { url_id })
     //   .then((data) => {
@@ -39,11 +41,13 @@ class DataContainer extends Component {
     //   .catch((error) => {
     //     console.log("error message from datacontainer", error);
     //   });
-    this.props.loadGraphData(url_id);
+    const { loadGraphData, getStatusArr } = this.props;
+    loadGraphData(url_id);
+    getStatusArr();
   }
 
   render() {
-    //conditional rendering of url data viz boxes, based on which user is logged in
+    // conditional rendering of url data viz boxes, based on which user is logged in
     const { graphData, urlList } = this.props;
     return (
       <div id="graph-container">
@@ -51,6 +55,7 @@ class DataContainer extends Component {
           Status from API Database
         </h2>
         <Graph graphData={graphData} />
+        <PieChart graphData={graphData} />
       </div>
     );
   }

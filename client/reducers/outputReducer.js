@@ -26,6 +26,8 @@ const initialState = {
   status: '',
   currentUser: '',
   graphData: [],
+  uniqueStatuses: [],
+  numOfStatuses: [],
 };
 
 const outputReducer = (state = initialState, action) => {
@@ -77,6 +79,25 @@ const outputReducer = (state = initialState, action) => {
       return {
         ...state,
         graphData: newGraphData,
+      };
+    }
+
+    case types.GET_STATUS_ARR: {
+      const statusObj = {};
+      const uniqueStatuses = [];
+      state.graphData.forEach((obj) => {
+        if (statusObj.hasOwnProperty(obj.status)) statusObj[obj.status] += 1;
+        else {
+          statusObj[obj.status] = 1;
+          uniqueStatuses.push(obj.status);
+        }
+      });
+      
+      const numOfStatuses = Object.keys(statusObj).map((status) => statusObj[status]);
+      return {
+        ...state,
+        uniqueStatuses,
+        numOfStatuses,
       };
     }
 

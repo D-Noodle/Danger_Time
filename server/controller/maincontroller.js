@@ -22,13 +22,14 @@ maincontroller.saveUrl = (req, res, next) => {
     .then((saved) => {
       res.locals.db_url_id = saved.rows[0].url_id;
       return next();
-    })// MAKE SURE url IS LOWERCASE ON FRONTEND REQUEST OBJECT
-    .catch((error) => next({
-      log:
-          'Express error handler caught error in maincontroller.saveURL',
-      status: 400,
-      message: { err: error },
-    }));
+    }) // MAKE SURE url IS LOWERCASE ON FRONTEND REQUEST OBJECT
+    .catch((error) =>
+      next({
+        log: "Express error handler caught error in maincontroller.saveURL",
+        status: 400,
+        message: { err: error },
+      })
+    );
 };
 
 /* Checks to see the status code of the URL we added depending on the response we get back */
@@ -42,18 +43,19 @@ maincontroller.pingUrl = (req, res, next) => {
     .then((response) => {
       if (typeof response === 'object') {
         res.locals.url_id = req.body.url_id;
-        res.locals.status = '200'; // We assumed that it is status 200 if we receive an object, this could be more specific
+        res.locals.status = "200"; //We assumed that it is status 200 if we receive an object, this could be more specific
         return next();
       }
-      res.locals.status = '400';
+      res.locals.status = "400";
       return next();
     })
-    .catch((error) => next({
-      log:
-      'Express error handler caught error in maincontroller.pingUrl',
-      status: 400,
-      message: { err: error },
-    }));
+    .catch((error) =>
+      next({
+        log: "Express error handler caught error in maincontroller.pingUrl",
+        status: 400,
+        message: { err: error },
+      })
+    );
 };
 
 /* Adds URL attributes to Postgres, but also sends back status to the client
@@ -63,29 +65,31 @@ maincontroller.addStatus = (req, res, next) => {
   const time = Date.now();
   const urlId = res.locals.url_id;
   const status = res.locals.status;
-  const updateStatusTable = 'INSERT INTO status (url_id,status,time) VALUES ($1, $2, $3)';
+  const updateStatusTable =
+    "INSERT INTO status (url_id,status,time) VALUES ($1, $2, $3)";
 
   db.query(updateStatusTable, [urlId, status, time])
-    .then(() => next())// MAKE SURE url IS LOWERCASE ON FRONTEND REQUEST OBJECT
-    .catch((error) => next({
-      log:
-        'Express error handler caught error in maincontroller.addStatus',
-      status: 400,
-      message: { err: error },
-    }));
+    .then(() => next()) // MAKE SURE url IS LOWERCASE ON FRONTEND REQUEST OBJECT
+    .catch((error) =>
+      next({
+        log: "Express error handler caught error in maincontroller.addStatus",
+        status: 400,
+        message: { err: error },
+      })
+    );
 };
 
 /* ITERATION OPTION: TASK SCHEDULER MIDDLEWARE */
 
 maincontroller.startTasks = () => {
-  return maincontroller.pingAll('test');
-  const allUrls = 'SELECT url_id,url FROM url';
+  return maincontroller.pingAll("test");
+  const allUrls = "SELECT url_id,url FROM url";
 
   db.query(allUrls)
     .then((urlCollection) => {
       this.pingAll(urlCollection.rows);
-    })// MAKE SURE url IS LOWERCASE ON FRONTEND REQUEST OBJECT
-    .catch((error) => console.log('Error in Task Schduler query: ', error));
+    }) // MAKE SURE url IS LOWERCASE ON FRONTEND REQUEST OBJECT
+    .catch((error) => console.log("Error in Task Schduler query: ", error));
 };
 
 maincontroller.pingAll = (urlArr) => {
@@ -97,7 +101,7 @@ maincontroller.pingAll = (urlArr) => {
         urlArr[i.status] = response.status;
         this.saveStatus(urlArr);
       })
-      .catch((error) => console.log('Error in Task Schduler query: ', error));
+      .catch((error) => console.log("Error in Task Schduler query: ", error));
   }
 };
 
@@ -107,12 +111,13 @@ maincontroller.saveStatus = (updatedUrlArr) => {
     const time = Date.now();
     const urlId = updatedUrlArr[i.url_id];
     const status = updatedUrlArr[i.status];
-    const updateStatusTable = 'INSERT INTO status (url_id,status,time) VALUES ($1, $2, $3) RETURNING';
+    const updateStatusTable =
+      "INSERT INTO status (url_id,status,time) VALUES ($1, $2, $3) RETURNING";
     db.query(updateStatusTable, [urlId, status, time])
       .then(() => {
-        console.log('Ping task completed: ', time);
+        console.log("Ping task completed: ", time);
       })
-      .catch((error) => console.log('Error in Task Schduler query: ', error));
+      .catch((error) => console.log("Error in Task Schduler query: ", error));
   }
 };
 
@@ -142,18 +147,6 @@ twillio API for text messages */
 // cam hello -> 7yxf, bcrypt adds salt register
 // updateInterval - update interval in database
 maincontroller.updateInterval = (req, res, next) => {
-  next();
-};
-
-/* 6) - data pull[https://mdbootstrap.com/docs/react/advanced/charts/](https://mdbootstrap.com/docs/react/advanced/charts/)
-get historical data from database , will be default time (we will test to determine later)
-api = /historicaldata
-req.body = will hold URL
-res.locals = will send back 2 arrays
-A)all the times URL was pinged
-B)all the status codes */
-// getData 5 -query the database for times and status code for url given in req.body, then save to res.locals and send back a res contiaing res.locals
-maincontroller.getData = (req, res, next) => {
   next();
 };
 

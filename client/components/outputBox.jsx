@@ -10,7 +10,7 @@ const OutputBox = (props) => {
           url: {props.url}
           status: {props.status} 
           <button onClick={()=>{
-            props.checkStatus(props.url_id)
+            props.checkStatus(props.url, props.url_id)
           }}>check now</button>
         </div>
       </div> 

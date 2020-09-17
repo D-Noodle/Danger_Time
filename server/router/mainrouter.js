@@ -32,7 +32,8 @@ router.post('/addURL',
   maincontroller.pingUrl,
   maincontroller.addStatus,
   (req, res) => {
-    res.sendStatus(200);
+    console.log('finished addURL')
+    res.status(200).json({status: res.locals.status, url_id: res.locals.url_id})
   });
 
 /* Once a URL is added, this route handles the functionality

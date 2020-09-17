@@ -19,13 +19,13 @@ export const addURL = (username, url) => (dispatch) => {
 };
 
 // GET UPDATED API URL STATUS
-export const checkStatus = (url_Id) => (dispatch) => {
+export const checkStatus = (url, url_id) => (dispatch) => {
   // **INSERT API URL**
-  axios.post('/main/checkStatus', { url_Id })
+  axios.post('/main/checkStatus', {url: url, url_id: url_id})
     .then((result) => {
       console.log('inside checkStatus action POST');
       dispatch({
-        type: types.FINISHED_URL_ADD,
+        type: types.CHECK_NOW,
         payload: {},
       });
     })

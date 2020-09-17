@@ -31,17 +31,16 @@ app.use(cors({
   ]
 }));
 
+// request to '/', redirect to /authrouter (same as request to /register)
+app.use('/', authrouter);
+
 // handle authentication requests
 // server recieves request to /auth/login or /auth/register, then direct to /authrouter
 app.use('/auth', authrouter);
 
 // handle all other requests
-// receive request for
 // /main/historicaldata, /main/addURL, /main/interval, /main/checknow, then direct to /mainrouter
 app.use('/main', mainrouter);
-
-// request to '/', redirect to /authrouter (same as request to /register)
-app.use('/', authrouter);
 
 // handle unknown path
 app.use((req, res) => {

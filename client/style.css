@@ -1,6 +1,7 @@
-body {
+html, body {
   /* background: lightgrey; */
   background-image: linear-gradient(rgb(255, 59, 59), rgb(253, 253, 146));
+  height: 100%;
 }
 
 h1 {

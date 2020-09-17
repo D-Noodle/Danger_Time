@@ -16,7 +16,7 @@ const initialState = {
   newEndpoint: '',
   status: '',
   currentUser: '',
-  // graphData(maybe time/)
+  graphData: [{time: Date.now, status:200}]
 };
 
 const outputReducer = (state = initialState, action) => {
@@ -59,6 +59,13 @@ const outputReducer = (state = initialState, action) => {
       return {
         ...state,
         urlList: copyUrlList,
+      };
+    }
+    case types.LOAD_GRAPH_DATA: {
+      const newGraphData = action.payload;
+      return {
+        ...state,
+        graphData: newGraphData,
       };
     }
 

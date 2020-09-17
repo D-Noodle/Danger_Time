@@ -7,40 +7,52 @@ import { line, curveMonotoneX } from 'd3-shape';
 import { extent } from 'd3-array';
 import { transition } from 'd3-transition';
 
-class Graph extends Component {
-  constructor() {
-    super();
-    this.state = {
-      data: [
-        { name: 'Jan', value: 30 },
-        { name: 'Feb', value: 10 },
-        { name: 'Mar', value: 50 },
-        { name: 'Apr', value: 20 },
-        { name: 'May', value: 80 },
-        { name: 'Jun', value: 30 },
-        { name: 'July', value: 0 },
-        { name: 'Aug', value: 20 },
-        { name: 'Sep', value: 100 },
-        { name: 'Oct', value: 55 },
-        { name: 'Nov', value: 60 },
-        { name: 'Dec', value: 80 },
-      ],
-    }
+export class Graph extends Component {
+  constructor(props) {
+    super(props);
+
+    const graphData =  [
+        { time: 'Jan', status: 30 },
+        { time: 'Feb', status: 10 },
+        { time: 'Mar', status: 50 },
+        { time: 'Apr', status: 20 },
+        { time: 'May', status: 80 },
+        { time: 'Jun', status: 30 },
+        { time: 'July', status: 0 },
+        { time: 'Aug', status: 20 },
+        { time: 'Sep', status: 100 },
+        { time: 'Oct', status: 55 },
+        { time: 'Nov', status: 60 },
+        { time: 'Dec', status: 80 },
+      ]    
   }
-  randomData = (e) => {
-    e.preventDefault();
-    this.setState((prevState) => {
-      const data = prevState.data.map(d => ({
-        name: d.name,
-        value: Math.floor((Math.random() * 100) + 1)
-      }))
-      return {
-        data
-      }
-    })
-  }
+  // randomData = (e) => {
+  //   e.preventDefault();
+  //   this.setState((prevState) => {
+  //     const data = prevState.data.map(d => ({
+  //       name: d.name,
+  //       value: Math.floor((Math.random() * 100) + 1)
+  //     }))
+  //     return {
+  //       data
+  //     }
+  //   })
+  // }
   render() {
-    const { data } = this.state;
+    const graphData =  [
+      { time: 'Jan', status: 30 },
+      { time: 'Feb', status: 10 },
+      { time: 'Mar', status: 50 },
+      { time: 'Apr', status: 20 },
+      { time: 'May', status: 80 },
+      { time: 'Jun', status: 30 },
+      { time: 'July', status: 0 },
+      { time: 'Aug', status: 20 },
+      { time: 'Sep', status: 100 },
+      { time: 'Oct', status: 55 },
+      { time: 'Nov', status: 60 },
+      { time: 'Dec', status: 80 },
+    ]
     const parentWidth = 500;
 
     const margins = {
@@ -57,22 +69,22 @@ class Graph extends Component {
     const t = transition().duration(1000);
 
     const xScale = scaleBand()
-      .domain(data.map(d => d.name))
+      .domain(graphData.map(d => d.time))
       .rangeRound([0, width]).padding(0.1);
 
     const yScale = scaleLinear()
-      .domain(extent(data, d => d.value))
+      .domain(extent(graphData, d => d.status))
       .range([height, 0])
       .nice();
 
     const lineGenerator = line()
-      .x(d => xScale(d.name))
-      .y(d => yScale(d.value))
+      .x(d => xScale(d.time))
+      .y(d => yScale(d.status))
       .curve(curveMonotoneX);
 
     return (
       <div>
-        <button onClick={this.randomData}>Randomize data</button>
+        {/* <button onClick={this.randomData}>Randomize data</button> */}
         <svg
           className="lineChartSvg"
           width={width + margins.left + margins.right}
@@ -80,7 +92,7 @@ class Graph extends Component {
         >
           <g transform={`translate(${margins.left}, ${margins.top})`}>
             <XYAxis {...{ xScale, yScale, height, ticks, t }} />
-            <Line data={data} xScale={xScale} yScale={yScale} lineGenerator={lineGenerator} width={width} height={height} />
+            <Line graphData={graphData} xScale={xScale} yScale={yScale} lineGenerator={lineGenerator} width={width} height={height} />
           </g>
         </svg>
       </div>
@@ -88,4 +100,4 @@ class Graph extends Component {
   }
 }
 
-export default Graph;
+// export default Graph;

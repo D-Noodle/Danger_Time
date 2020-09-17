@@ -25,12 +25,12 @@ const MainContainer = (props) => {
   } = props;
   return (
     <div>
-      <Graph />
-      {/* <InputBox
-        id="inputboxcontainer"
-        addURL={addURL}
-        currentUser={currentUser}
-      />
+      <div id="inputboxcontainer">
+        <InputBox
+          addURL={addURL}
+          currentUser={currentUser}
+        />
+      </div>
 
       <div id="outputboxcontainer">
         <OutputBoxContainer
@@ -41,7 +41,7 @@ const MainContainer = (props) => {
             // OUTPUT DISPATCH ACTION
           checkStatus={checkStatus}
         />
-      </div> */}
+      </div>
     </div>
   );
 };

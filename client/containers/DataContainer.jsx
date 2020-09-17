@@ -1,12 +1,16 @@
 import Axios from "axios";
 import React, { Component } from "react";
+import { connect } from 'react-redux';
 import axios from "axios";
+import { loadGraphData } from "../actions/action";
+import { Graph } from '../components/graph/graph';
 
 //this component sit on top of maincontainer or app and will hold boxes
 
 const mapStateToProps = (state) => ({
   currentUser: state.outputs.currentUser,
   urlList: state.outputs.urlList,
+  graphData: state.graphData,
 });
 //dummy url-id: 75 (in database)
 const url_id = 75;
@@ -24,21 +28,18 @@ class DataContainer extends Component {
   //send to backend url-id, and how many rows of data we want to retrieve
   //backend will send back
   componentDidMount() {
-    axios
-      .post("http://localhost:3000/main/checkNow", {
-        url_id,
-        rows,
-      })
-      .then((data) => console.log("data container", data))
-      .catch((error) => {
-        console.log("error message", error);
-      });
+    // loadGraphData(url_id, rows);
   }
 
   render() {
     //conditional rendering of url data viz boxes, based on which user is logged in
-    return;
+    return (
+      <div>
+        HELLO!!!!
+         <Graph graphData />
+      </div>
+    )
   }
 }
 
-export default DataContainer;
+export default connect(mapStateToProps, mapDispatchToProps)(DataContainer);

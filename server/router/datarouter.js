@@ -1,6 +1,6 @@
 const express = require('express');
-const router = require("router");
-const datacontroller = require(''../controller/datacontroller');
+const router = express.Router();
+const datacontroller = require('../controller/datacontroller');
 
 
 /* Provide more visual context for each endpoint, user clicks and historical graphs are shown*/
@@ -14,8 +14,8 @@ B)all the status codes */
 // getData 5 -query the database for times and status code for url given in req.body, then save to res.locals and send back a res contiaing res.locals
 
 
-router.get('/', datacontroller.getdata, (req, res) => {
-    res.status(200).json('data');
+router.post('/', datacontroller.getdata, (req, res) => {
+    res.status(200).json(res.locals.rows);
 });
 
 module.exports = router;

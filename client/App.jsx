@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import MainContainer from './containers/MainContainer';
+import DataContainer from './containers/DataContainer';
 import Login from './components/login/Login'
 import Signup from './components/login/Signup'
 
@@ -10,8 +11,13 @@ class App extends Component {
   }
   render() {
     return (
-      <div id='main' >
-        <MainContainer/>
+      <div>
+        <div id='main' >
+          <MainContainer/>
+        </div>
+        <div id='data'>
+          <DataContainer/>
+        </div>
       </div>
     );
   }

@@ -9,9 +9,9 @@ class Line extends React.Component {
   }
   componentDidMount() {
     const node = this.ref.current;
-    const { xScale, yScale, data, lineGenerator } = this.props;
+    const { xScale, yScale, graphData, lineGenerator } = this.props;
 
-    const initialData = data.map(d => ({
+    const initialData = graphData.map(d => ({
       name: d.name,
       value: 0
     }));
@@ -45,7 +45,7 @@ class Line extends React.Component {
   }
   updateChart() {
     const {
-          lineGenerator, xScale, yScale, data,
+          lineGenerator, xScale, yScale, graphData,
         } = this.props;
 
     const t = transition().duration(1000);
@@ -54,7 +54,7 @@ class Line extends React.Component {
     const dot = selectAll('.circle');
 
     line
-      .datum(data)
+      .datum(graphData)
       .transition(t)
       .attr('d', lineGenerator);
 

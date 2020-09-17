@@ -12,7 +12,7 @@ const mapStateToProps = (state) => ({
   graphData: state.outputs.graphData,
 });
 //dummy url-id: 75 (in database)
-const url_id = 75;
+const url_id = 96;
 
 const mapDispatchToProps = (dispatch) => ({
   loadGraphData: (url_id) => dispatch(actions.loadGraphData(url_id)),
@@ -28,6 +28,14 @@ class DataContainer extends Component {
   //send to backend url-id, and how many rows of data we want to retrieve
   //backend will send back
   componentDidMount() {
+
+    this.props.loadGraphData(url_id)
+
+    setInterval( ()=>{
+      this.props.loadGraphData(url_id)
+    }, 20000)
+  }
+
     //axios request moved to actions/action.js
     // axios
     //   .post("/main/data", { url_id })
@@ -39,8 +47,8 @@ class DataContainer extends Component {
     //   .catch((error) => {
     //     console.log("error message from datacontainer", error);
     //   });
-    this.props.loadGraphData(url_id);
-  }
+    
+  
 
   render() {
     //conditional rendering of url data viz boxes, based on which user is logged in

@@ -1,15 +1,20 @@
 const express = require("express");
 const cors = require("cors");
-
+const cron = require('node-cron')
 const app = express();
 const PORT = 3333;
 const path = require("path");
+
+const db = require('./db/databaseIndex.js');
+const fetch = require('node-fetch')
+
 
 /*required routers*/
 const authrouter = require("./router/authrouter");
 const mainrouter = require("./router/mainrouter");
 // const datarouter = require("./router/datarouter");
 const datacontroller = require("./controller/datacontroller");
+const maincontroller = require("./controller/maincontroller");
 
 /* CORS middleware to prevent CORS policy during POST */
 app.use(cors({
@@ -32,6 +37,27 @@ app.use(express.json());
 app.use(express.static(path.resolve(__dirname, './../client')));
 
 
+cron.schedule('10 * * * * *', () => {
+
+  fetch('https://pokeapi.co/api/v2/pokemon/ditto')
+    .then((response) => response.json())
+    .then((result) => {      
+      let status;
+      if (typeof result === 'object') status = '200';
+      else status = '400';
+
+      const addStatus = 'INSERT INTO status (url_id,status,time) VALUES ($1, $2, $3)';
+      const params = [96, status, Date.now()];
+
+      db.query(addStatus, params)
+      .then(() => console.log('inside cron query'))
+      .catch(error => {console.log(error)})
+      })
+    .catch(error => {console.log(error)})
+
+})
+
+
 // request to '/', redirect to /authrouter (same as request to /register)
 app.use("/", authrouter);
 
@@ -47,10 +73,6 @@ app.use("/main/data", datacontroller.getData, (req, res) => {
 // receive request for /main/historicaldata, /main/addURL, /main/interval, /main/checknow, then direct to /mainrouter
 app.use("/main", mainrouter);
 
-// request to '/', redirect to /authrouter (same as request to /register)
-app.use("/", (req, res) => {
-  res.status(200).sendFile(path.resolve(__dirname, "../client/index.html"));
-});
 
 // handle unknown path
 app.use((req, res) => {

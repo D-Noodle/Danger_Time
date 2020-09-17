@@ -30,6 +30,7 @@ maincontroller.saveUrl = (req, res, next) => {
 // CHECK API URL STATUS...returned object is 200 status else 400
 maincontroller.pingUrl = (req, res, next) => {
   console.log('main.controller pingURL - inside');
+  console.log(name)
 
   fetch(req.body.url)
     .then((response) => response.json())

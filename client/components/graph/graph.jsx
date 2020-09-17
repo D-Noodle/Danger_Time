@@ -11,20 +11,20 @@ export class Graph extends Component {
   constructor(props) {
     super(props);
 
-    const graphData = [
-      { time: 'Jan', status: 30 },
-      { time: 'Feb', status: 10 },
-      { time: 'Mar', status: 50 },
-      { time: 'Apr', status: 20 },
-      { time: 'May', status: 80 },
-      { time: 'Jun', status: 30 },
-      { time: 'July', status: 0 },
-      { time: 'Aug', status: 20 },
-      { time: 'Sep', status: 100 },
-      { time: 'Oct', status: 55 },
-      { time: 'Nov', status: 60 },
-      { time: 'Dec', status: 80 },
-    ];
+    /* const graphData =  [
+        { time: 'Jan', status: 30 },
+        { time: 'Feb', status: 10 },
+        { time: 'Mar', status: 50 },
+        { time: 'Apr', status: 20 },
+        { time: 'May', status: 80 },
+        { time: 'Jun', status: 30 },
+        { time: 'July', status: 0 },
+        { time: 'Aug', status: 20 },
+        { time: 'Sep', status: 100 },
+        { time: 'Oct', status: 55 },
+        { time: 'Nov', status: 60 },
+        { time: 'Dec', status: 80 },
+      ]     */
   }
 
   // randomData = (e) => {
@@ -39,21 +39,23 @@ export class Graph extends Component {
   //     }
   //   })
   // }
+  
   render() {
-    const graphData = [
-      { time: 'Jan', status: 30 },
-      { time: 'Feb', status: 10 },
-      { time: 'Mar', status: 50 },
-      { time: 'Apr', status: 20 },
-      { time: 'May', status: 80 },
-      { time: 'Jun', status: 30 },
-      { time: 'July', status: 0 },
-      { time: 'Aug', status: 20 },
-      { time: 'Sep', status: 100 },
-      { time: 'Oct', status: 55 },
-      { time: 'Nov', status: 60 },
-      { time: 'Dec', status: 80 },
-    ];
+    const { graphData } = this.props;
+    /*const graphData = [
+      { time: "Jan", status: 30 },
+      { time: "Feb", status: 10 },
+      { time: "Mar", status: 50 },
+      { time: "Apr", status: 20 },
+      { time: "May", status: 80 },
+      { time: "Jun", status: 30 },
+      { time: "July", status: 0 },
+      { time: "Aug", status: 20 },
+      { time: "Sep", status: 100 },
+      { time: "Oct", status: 55 },
+      { time: "Nov", status: 60 },
+      { time: "Dec", status: 80 },
+    ];*/
     const parentWidth = 500;
 
     const margins = {
@@ -92,11 +94,15 @@ export class Graph extends Component {
           height={height + margins.top + margins.bottom}
         >
           <g transform={`translate(${margins.left}, ${margins.top})`}>
-            <XYAxis {...{
-              xScale, yScale, height, ticks, t,
-            }}
+            <XYAxis {...{ xScale, yScale, height, ticks, t }} />
+            <Line
+              graphData={graphData}
+              xScale={xScale}
+              yScale={yScale}
+              lineGenerator={lineGenerator}
+              width={width}
+              height={height}
             />
-            <Line graphData={graphData} xScale={xScale} yScale={yScale} lineGenerator={lineGenerator} width={width} height={height} />
           </g>
         </svg>
       </div>
@@ -104,4 +110,4 @@ export class Graph extends Component {
   }
 }
 
-export default Graph;
+// export default Graph;

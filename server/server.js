@@ -8,7 +8,6 @@ const path = require('path');
 /* required routers */
 const authrouter = require('./router/authrouter');
 const mainrouter = require('./router/mainrouter');
-// const datarouter = require('./router/datarouter');
 
 /* CORS middleware to prevent CORS policy during POST */
 app.use(cors());

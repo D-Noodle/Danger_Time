@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import OutputBoxContainer from './OutputBoxContainer.jsx';
 import InputBox from '../components/InputBox.jsx';
+import Graph from '../components/graph/graph'
 import * as actions from '../actions/action';
 
 const mapStateToProps = (state) => ({
@@ -23,7 +24,7 @@ const MainContainer = (props) => {
     addURL, currentUser, urlList, url_id, url, checkStatus,
   } = props;
   return (
-    <div>
+    <div id="input-output-container">
       <InputBox
         id="inputboxcontainer"
         addURL={addURL}

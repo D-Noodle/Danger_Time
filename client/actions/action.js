@@ -49,3 +49,22 @@ const checkStatusError = () => ({
 
 export const finishedUrlAdd = (addedUrlObj) => ({
 });
+
+// Graph data actions
+export const loadGraphData = (url_id, rows) => (dispatch) => {
+  axios.post("http://localhost:3000/main/data", {
+    url_id,
+    rows,
+  })
+  .then((data) => {
+    console.log("data for graph: ", data);
+    dispatch({
+      type: "LOAD_GRAPH_DATA",
+      payload: data
+    })
+  })
+  .catch((error) => {
+    console.log("error message", error);
+  });
+
+}

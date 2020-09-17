@@ -1,20 +1,18 @@
-const express = require('express');
+const express = require("express");
+const maincontroller = require("../controller/maincontroller");
+
+/* Iterate Option: We didn't get to this, but these are the controllers if we had authentication */
+const authcontroller = require("../controller/authcontroller");
+const router = express.Router();
+
 /* Default timer pings all urls in the db every hour */
 // 1) query all urls from the db  queryAll
 // 2) ping all of them  pingAll
 // 3) save status to db saveStatus
-const cron = require('node-cron');
-const maincontroller = require('../controller/maincontroller');
+const cron = require("node-cron");
+//cron.schedule('* * * * * *', maincontroller.startTasks);
 
-/* Iterate Option: We didn't get to this, but these are the controllers if we had authentication */
-const authcontroller = require('../controller/authcontroller');
-
-const router = express.Router();
-
-// cron.schedule('* * * * * *', maincontroller.startTasks);
-
-/* Iterate Option: We didn't get to this, we would like
-incorporate Twilio API when the endpoints goes down */
+/* Iterate Option: We didn't get to this, we would like incorporate Twilio API when the endpoints goes down */
 
 /* Twilio express sms docs
 https://www.twilio.com/docs/sms/tutorials/how-to-send-sms-messages-node-js
@@ -27,7 +25,8 @@ https://www.twilio.com/docs/sms/tutorials/how-to-send-sms-messages-node-js
 // B-set timer to ping URL, C-send message to twilio if status is not 200,
 // D- save status code and time in database
 // send to client success message so client can render URL component
-router.post('/addURL',
+router.post(
+  "/addURL",
   maincontroller.saveUrl,
   maincontroller.pingUrl,
   maincontroller.addStatus,
@@ -36,9 +35,9 @@ router.post('/addURL',
     res.status(200).json({status: res.locals.status, url_id: res.locals.url_id})
   });
 
-/* Once a URL is added, this route handles the functionality
-of clicking checkNow to check status at any time */
-router.post('/checkStatus',
+/* Once a URL is added, this route handles the functionality of clicking checkNow to check status at any time */
+router.post(
+  "/checkNow",
   maincontroller.pingUrl,
   maincontroller.addStatus,
   (req, res) => {

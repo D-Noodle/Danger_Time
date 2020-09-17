@@ -1,7 +1,9 @@
-const express = require("express");
-const cors = require("cors");
+const express = require('express');
+const cors = require('cors');
+
 const app = express();
-const PORT = 3000;
+const PORT = 3333;
+const path = require('path');
 
 /*required routers*/
 const authrouter = require("./router/authrouter");
@@ -12,7 +14,7 @@ const datacontroller = require("./controller/datacontroller");
 /*CORS middleware to prevent CORS policy during POST*/
 app.use(
   cors({
-    origin: ["http://localhost:8080", "http://localhost:3000"],
+    origin: ["http://localhost:8080", "http://localhost:3000", "http://localhost:3333"],
   })
 );
 
@@ -22,7 +24,14 @@ app.use(
  * https://www.npmjs.com/package/body-parser
  */
 app.use(express.urlencoded({ extended: true }));
+// use express.json instead of bodyparser (bodyparser is deprecated)
 app.use(express.json());
+
+app.use(express.static(path.resolve(__dirname, './../client')));
+
+
+// request to '/', redirect to /authrouter (same as request to /register)
+app.use('/', authrouter);
 
 // handle authentication requests
 // server recieves request to /auth/login or /auth/register, then direct to /authrouter
@@ -37,7 +46,9 @@ app.use("/main/data", datacontroller.getData, (req, res) => {
 app.use("/main", mainrouter);
 
 // request to '/', redirect to /authrouter (same as request to /register)
-app.use("/", authrouter);
+app.use('/', (req, res) => {
+  res.status(200).sendFile(path.resolve(__dirname, '../client/index.html'));
+});
 
 // handle unknown path
 app.use((req, res) => {

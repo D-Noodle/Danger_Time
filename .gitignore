@@ -1,5 +1,6 @@
 node_modules
 npm-debug.log
-package-lock.json
-.eslintrc.js
 .env
+.eslintrc.js
+package-lock.json
+webpack.config.js

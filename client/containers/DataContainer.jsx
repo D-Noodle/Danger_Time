@@ -1,13 +1,15 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import axios from "axios";
-import * as actions from "../actions/action";
+import { loadGraphData } from "../actions/action";
+import { Graph } from '../components/graph/graph';
 
 //this component sits on top of maincontainer or app and will hold graphs
 
 const mapStateToProps = (state) => ({
   currentUser: state.outputs.currentUser,
   urlList: state.outputs.urlList,
+  graphData: state.graphData,
 });
 //dummy url-id: 75 (in database)
 const url_id = 75;
@@ -36,11 +38,17 @@ class DataContainer extends Component {
       .catch((error) => {
         console.log("error message from datacontainer", error);
       });
+    // loadGraphData(url_id, rows);
   }
 
   render() {
     //conditional rendering of url data viz boxes, based on which user is logged in
-    return <div>statusData!!</div>;
+    return (
+      <div>
+        HELLO!!!!
+         <Graph graphData />
+      </div>
+    )
   }
 }
 

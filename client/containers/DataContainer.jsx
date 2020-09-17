@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import axios from "axios";
 import { loadGraphData } from "../actions/action";
-import { Graph } from '../components/graph/graph';
+import { Graph } from "../components/graph/graph";
 
 //this component sits on top of maincontainer or app and will hold graphs
 
@@ -30,7 +30,7 @@ class DataContainer extends Component {
   //backend will send back
   componentDidMount() {
     axios
-      .post("http://localhost:3000/main/data", { url_id, rows })
+      .post("/main/data", { url_id, rows })
       .then((data) => {
         console.log("data container", data);
         // statusData = data;
@@ -46,9 +46,9 @@ class DataContainer extends Component {
     return (
       <div>
         HELLO!!!!
-         <Graph graphData />
+        <Graph graphData />
       </div>
-    )
+    );
   }
 }
 

@@ -25,7 +25,7 @@ datacontroller.getData = (req, res, next) => {
   if (!url_id || !rows) {
     return next({
       log:
-        "Express error handler caught error in datacsontroller.getData receiving post request from client",
+        "Express error handler caught error in datacontroller.getData receiving post request from client",
       status: 400,
       message: { err: error },
     });

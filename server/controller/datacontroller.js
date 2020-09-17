@@ -13,8 +13,10 @@ A)all the times URL was pinged
 B)all the status codes */
 // getData 5 -query the database for times and status code for url given in req.body, then save to res.locals and send back a res contiaing res.locals
 //return an array objects with the status, time
+
 datacontroller.getData = (req, res, next) => {
   const { rows } = req.body;
   res.locals.rows = rows;
   next();
+
 };

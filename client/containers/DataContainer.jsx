@@ -28,7 +28,7 @@ class DataContainer extends Component {
   //send to backend url-id, and how many rows of data we want to retrieve
   //backend will send back
   componentDidMount() {
-    // loadGraphData(url_id, rows);
+    loadGraphData(url_id, rows);
   }
 
   render() {

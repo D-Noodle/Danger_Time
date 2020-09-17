@@ -38,7 +38,7 @@ app.use('/auth', authrouter);
 
 // handle all other requests
 // receive requests for /main/data
-app.use('/main/data', datarouter);
+// app.use('/main/data', datarouter);
 // receive request for /main/historicaldata, /main/addURL, /main/interval, /main/checknow, then direct to /mainrouter
 app.use('/main', mainrouter);
 

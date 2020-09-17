@@ -9,7 +9,7 @@ header {
   width: 98vw;
   background-color: #283D3B;
   /* padding: 0.5rem; */
-  padding-left: 0rem;
+  padding: 0.5rem 0.5rem 0.5rem 0rem;
 }
 
 h1 {
@@ -21,8 +21,8 @@ h1 {
   font-family: Arial, Helvetica, sans-serif;
   background-color: #C44536;
   color: #EDDDD4;
-  padding: 1rem;
-  width: 15rem;
+  padding: 0.8rem 0.7rem 0.8rem 0.7rem;
+  width: 14.5rem;
   border-radius: 3px;
 }
 
@@ -87,8 +87,8 @@ button:hover {
 }
 
 #input-output-container {
-  width: 30%;
-  min-width: 18rem;
+  /* width: 30%; */
+  width: 18rem;
 }
 
 #app-container {
@@ -102,7 +102,7 @@ button:hover {
 
 .graph {
   background-color: #EDDDD4;
-  width: 31rem;
+  width: 30rem;
   border-radius: 3px;
   padding: 1rem;
   color: #283D3B;

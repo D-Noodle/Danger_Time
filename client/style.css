@@ -1,6 +1,7 @@
-html, body {
+body {
   /* background: lightgrey; */
-  background-image: linear-gradient(rgb(255, 59, 59), rgb(253, 253, 146));
+  /* background-image: linear-gradient(rgb(255, 59, 59), rgb(253, 253, 146)); */
+  background-color: #197278;
   height: 100%;
 }
 
@@ -10,6 +11,11 @@ h1 {
   margin-left: 1.5rem;
   margin-top: 2rem;
   font-family: Arial, Helvetica, sans-serif;
+  background-color: #C44536;
+  color: #EDDDD4;
+  padding: 1rem;
+  width: 15rem;
+  border-radius: 3px;
 }
 
 #outputBoxContainer {
@@ -26,12 +32,23 @@ h1 {
 }
 
 input {
-  border: 2px solid black;
+  border: 0px solid black;
+  background-color: #EDDDD4;
+  color: #283D3B;
+  outline: none;
 }
  
 button {
-  border: 2px solid black;
-  border-radius: 10%;
+  border: 0px solid black;
+  border-radius: 3px;
+  background-color: #C44536;
+  color: #EDDDD4;
+  padding: 0.5rem;
+  outline: none;
+}
+
+button:hover {
+  background-color: #772E25;
 }
 
 #boxes {
@@ -40,13 +57,37 @@ button {
   justify-content: space-around;
   align-items: start;
   padding: 0.75rem;
-  border: 2px solid black;
-  border-radius: 3%;
+  border: 0px solid black;
+  border-radius: 3px;
   margin: 20px;
   overflow-wrap: anywhere;
+  background-color: #EDDDD4;
+  color: #283D3B;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 #input-output-container {
   width: 30%;
-  min-width: 15rem;
+  min-width: 18rem;
+}
+
+#app-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+#graph-container {
+  margin: 4rem 2rem 2rem 2rem;
+}
+
+.graph {
+  background-color: #EDDDD4;
+  width: 31rem;
+  border-radius: 3px;
+  padding: 1rem;
+  color: #283D3B;
+}
+
+#data {
+  margin: 1rem auto 1rem auto;
 }

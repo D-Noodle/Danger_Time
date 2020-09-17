@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import { render } from "react-dom";
-import { scaleLinear, scaleBand } from "d3-scale";
-import XYAxis from "./axis/xy_axis";
-import Line from "./line/line";
-import { line, curveMonotoneX } from "d3-shape";
-import { extent } from "d3-array";
-import { transition } from "d3-transition";
+import React, { Component } from 'react';
+import { render } from 'react-dom';
+import { scaleLinear, scaleBand } from 'd3-scale';
+import { line, curveMonotoneX } from 'd3-shape';
+import { extent } from 'd3-array';
+import { transition } from 'd3-transition';
+import Line from './line/line';
+import XYAxis from './axis/xy_axis';
 
 export class Graph extends Component {
   constructor(props) {
@@ -73,8 +73,7 @@ export class Graph extends Component {
 
     const xScale = scaleBand()
       .domain(graphData.map((d) => d.time))
-      .rangeRound([0, width])
-      .padding(0.1);
+      .rangeRound([0, width]).padding(0.1);
 
     const yScale = scaleLinear()
       .domain(extent(graphData, (d) => d.status))
@@ -87,7 +86,7 @@ export class Graph extends Component {
       .curve(curveMonotoneX);
 
     return (
-      <div>
+      <div className="graph">
         {/* <button onClick={this.randomData}>Randomize data</button> */}
         <svg
           className="lineChartSvg"

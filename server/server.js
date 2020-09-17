@@ -11,16 +11,14 @@ const mainrouter = require("./router/mainrouter");
 // const datarouter = require("./router/datarouter");
 const datacontroller = require("./controller/datacontroller");
 
-/*CORS middleware to prevent CORS policy during POST*/
-app.use(
-  cors({
-    origin: [
-      "http://localhost:8080",
-      "http://localhost:3000",
-      "http://localhost:3333",
-    ],
-  })
-);
+/* CORS middleware to prevent CORS policy during POST */
+app.use(cors({
+  origin: [
+    'http://localhost:8080',
+    'http://localhost:3000',
+    'http://localhost:3333',
+  ],
+}));
 
 /**
  * Automatically parse urlencoded body content from incoming requests and place it
@@ -31,7 +29,8 @@ app.use(express.urlencoded({ extended: true }));
 // use express.json instead of bodyparser (bodyparser is deprecated)
 app.use(express.json());
 
-app.use(express.static(path.resolve(__dirname, "./../client")));
+app.use(express.static(path.resolve(__dirname, './../client')));
+
 
 // request to '/', redirect to /authrouter (same as request to /register)
 app.use("/", authrouter);

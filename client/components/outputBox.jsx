@@ -18,7 +18,7 @@ const OutputBox = (props) => {
         <br />
         <button
           type="button"
-          onClick={() => checkStatus(url_id)}
+          onClick={() => checkStatus(url_id, url)}
         >
           check now
         </button>

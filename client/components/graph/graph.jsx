@@ -26,6 +26,7 @@ export class Graph extends Component {
         { time: 'Dec', status: 80 },
       ]    
   }
+
   // randomData = (e) => {
   //   e.preventDefault();
   //   this.setState((prevState) => {
@@ -38,6 +39,7 @@ export class Graph extends Component {
   //     }
   //   })
   // }
+  
   render() {
     const graphData =  [
       { time: 'Jan', status: 30 },

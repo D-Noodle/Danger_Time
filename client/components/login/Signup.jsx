@@ -20,4 +20,4 @@ const signup = () => {
   )
 }
 
-export default Login
+export default signup;

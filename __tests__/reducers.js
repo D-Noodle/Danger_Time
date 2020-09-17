@@ -14,7 +14,7 @@ describe('Output Reducer', () => {
           username: 'Chris', url: 'www.coinbase.com', status: 400, url_id: 81,
         },
         {
-          username: 'Joon', url: 'www.facebook.com', status: 400, url_id: 90,
+          username: 'Joon', url: 'https://pokeapi.co/api/v2/pokemon/ditto', status: 400, url_id: 90,
         },
       ],
       newEndpoint: '',
@@ -25,7 +25,7 @@ describe('Output Reducer', () => {
 
   describe('default state', () => {
     it('should return original state when given an undefined input', () => {
-      expect(reducer(undefined, { type: undefined })).toEqual(state);
+      expect(reducer(state, { type: undefined })).toEqual(state);
     });
   });
 
@@ -36,24 +36,53 @@ describe('Output Reducer', () => {
     });
   });
 
-  xdescribe('ADD_URL', () => {
+  describe('FINISHED_URL_ADD', () => {
     const action = {
-      type: 'ADD_URL',
+      type: 'FINISHED_URL_ADD',
       payload: {
-        username: 'bob', url: 'https://pokeapi.co/api/v2/pokemon/ditto', status: 418, url_id: 69,
+        username: 'Bob',
+        url: 'https://pokeapi.co/api/v2/pokemon/ditto',
+        url_id: '69',
+        status: '418',
       },
     };
 
-    it('adds a URL', () => {
+    it('adds URL object to state.urlList', () => {
       const { urlList } = reducer(state, action);
+
       expect(urlList[3]).toEqual({
-        username: 'bob', url: 'https://pokeapi.co/api/v2/pokemon/ditto', status: 418, url_id: 69,
+        username: 'Bob',
+        url: 'https://pokeapi.co/api/v2/pokemon/ditto',
+        url_id: '69',
+        status: '418',
       });
     });
 
     it('updates status', () => {
       const { status } = reducer(state, action);
-      expect(status).toEqual(418);
+      expect(status).toEqual('418');
+    });
+  });
+
+  describe('CHECK STATUS', () => {
+    const action = {
+      type: 'CHECK_NOW',
+      payload: {
+        username: 'Joon',
+        url: 'https://pokeapi.co/api/v2/pokemon/ditto',
+        status: 418,
+        url_id: 90,
+      },
+    };
+
+    it('updates status in state.urlList', () => {
+      const { urlList } = reducer(state, action);
+      expect(urlList[2]).toEqual({
+        username: 'Joon',
+        url: 'https://pokeapi.co/api/v2/pokemon/ditto',
+        status: 418,
+        url_id: 90,
+      });
     });
   });
 });

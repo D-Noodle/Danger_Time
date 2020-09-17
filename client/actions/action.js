@@ -19,13 +19,13 @@ export const addURL = (username, url) => (dispatch) => {
 };
 
 // GET UPDATED API URL STATUS
-export const checkStatus = (url_Id) => (dispatch) => {
+export const checkStatus = (url, url_id) => (dispatch) => {
   // **INSERT API URL**
-  axios.post('/main/checkStatus', { url_Id })
+  axios.post('/main/checkStatus', {url: url, url_id: url_id})
     .then((result) => {
       console.log('inside checkStatus action POST');
       dispatch({
-        type: types.FINISHED_URL_ADD,
+        type: types.CHECK_NOW,
         payload: {},
       });
     })
@@ -49,3 +49,22 @@ const checkStatusError = () => ({
 
 export const finishedUrlAdd = (addedUrlObj) => ({
 });
+
+// Graph data actions
+export const loadGraphData = (url_id, rows) => (dispatch) => {
+  axios.post("http://localhost:3000/main/data", {
+    url_id,
+    rows,
+  })
+  .then((data) => {
+    console.log("data for graph: ", data);
+    dispatch({
+      type: "LOAD_GRAPH_DATA",
+      payload: data
+    })
+  })
+  .catch((error) => {
+    console.log("error message", error);
+  });
+
+}

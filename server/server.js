@@ -8,6 +8,7 @@ const path = require('path');
 /* required routers */
 const authrouter = require('./router/authrouter');
 const mainrouter = require('./router/mainrouter');
+// const datarouter = require('./router/datarouter');
 
 /* CORS middleware to prevent CORS policy during POST */
 app.use(cors());
@@ -26,22 +27,28 @@ app.use(express.static(path.resolve(__dirname, './../client')));
 app.use(cors({
   origin: [
     'http://localhost:8080',
-    // 'http://localhost:3000',
+    'http://localhost:3000',
     'http://localhost:3333',
-  ]
+  ],
 }));
+
+// request to '/', redirect to /authrouter (same as request to /register)
+app.use('/', authrouter);
 
 // handle authentication requests
 // server recieves request to /auth/login or /auth/register, then direct to /authrouter
 app.use('/auth', authrouter);
 
 // handle all other requests
-// receive request for
-// /main/historicaldata, /main/addURL, /main/interval, /main/checknow, then direct to /mainrouter
+// receive requests for /main/data
+// app.use('/main/data', datarouter);
+// receive request for /main/historicaldata, /main/addURL, /main/interval, /main/checknow, then direct to /mainrouter
 app.use('/main', mainrouter);
 
 // request to '/', redirect to /authrouter (same as request to /register)
-app.use('/', authrouter);
+app.use('/', (req, res) => {
+  res.status(200).sendFile(path.resolve(__dirname, '../client/index.html'));
+});
 
 // handle unknown path
 app.use((req, res) => {

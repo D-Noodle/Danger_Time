@@ -8,71 +8,60 @@ const db = require('../db/databaseIndex.js');
 
 /* Need to import node library if we want to use fetch in the backend */
 
-/* REQUEST/RESPONSE MIDDLEWARE */
-
+// SAVE NEW URL TO DATABASE
 maincontroller.saveUrl = (req, res, next) => {
-  const { url } = req.body;
-  // const urlArray = Object.keys(urlBody);
-  // const url = urlArray[0];
-  res.locals.url = url;
+  console.log('main.controller.saveURL - inside')
 
-  const userId = 42; /* ITERATION OPTION: this should pull from state that's updated from DB */
+  const user_id = 42; 
+  const saveUrl = 'INSERT INTO url (user_id, url) VALUES ($1, $2) RETURNING url_id';
+  const params = [user_id, req.body.url]
 
-  const updateUrlTable = 'INSERT INTO url (user_id, url) VALUES ($1, $2) RETURNING url_id';
-  db.query(updateUrlTable, [userId, `${url}`])
-    .then((saved) => {
-      res.locals.db_url_id = saved.rows[0].url_id;
+  db.query(saveUrl, params)
+    .then((result) => {
+      res.locals.url_id = result.rows[0].url_id;
       return next();
-    })// MAKE SURE url IS LOWERCASE ON FRONTEND REQUEST OBJECT
+    })
     .catch((error) => next({
-      log:
-          'Express error handler caught error in maincontroller.saveURL',
+      log: 'Query error in maincontroller.saveURL',
       status: 400,
       message: { err: error },
     }));
 };
 
-/* Checks to see the status code of the URL we added depending on the response we get back */
+//CHECK API URL STATUS...returned object is 200 status else 400 
 maincontroller.pingUrl = (req, res, next) => {
-  console.log('we PING')
-  let check;
-  if (!res.locals.url) check = req.body.url;
-  else check = res.locals.url;
-  console.log(check);
-  fetch(check)// recieved from state
-    .then((data) => data.json())
-    .then((response) => {
-      console.log(response);
-      if (typeof response === 'object') {
-        res.locals.url_id = req.body.url_id;
-        res.locals.status = '200'; // We assumed that it is status 200 if we receive an object, this could be more specific
-        return next();
-      }
-      res.locals.status = '400';
+  console.log('main.controller pingURL - inside')
+
+  fetch(req.body.url)
+    .then((response) => response.json())
+    .then((result) => {
+      if (typeof result === 'object') res.locals.status = '200'
+      else res.locals.status = '400'  
+      console.log(res.locals.status)
       return next();
     })
     .catch((error) => next({
-      log:
-      'Express error handler caught error in maincontroller.pingUrl',
+      log:'Fetch error in maincontroller.pingUrl',
       status: 400,
       message: { err: error },
     }));
 };
 
 /* Adds URL attributes to Postgres, but also sends back status to the client so that we can keep track in state */
-maincontroller.addStatus = (req, res, next) => {
-  // console.log('JOOOOOON')
-  if (res.locals.db_url_id) res.locals.url_id = res.locals.db_url_id;
-  const time = Date.now();
-  const urlId = res.locals.url_id;
-  const status = res.locals.status;
-  const updateStatusTable = 'INSERT INTO status (url_id,status,time) VALUES ($1, $2, $3)';
 
-  db.query(updateStatusTable, [urlId, status, time])
-    .then(() => next())// MAKE SURE url IS LOWERCASE ON FRONTEND REQUEST OBJECT
+// ADD NEW URL STATUS RECORD IN DATABASE
+maincontroller.addStatus = (req, res, next) => {
+  console.log('main.controller addStatus - inside')
+
+  const addStatus = 'INSERT INTO status (url_id,status,time) VALUES ($1, $2, $3)';
+  const params = [res.locals.url_id || req.body.url_id, res.locals.status, Date.now()] 
+
+  db.query(addStatus, params)
+    .then(() => {
+      console.log('inside maincontroller.Update Status Table query')
+      return next()})
     .catch((error) => next({
-      log:
-        'Express error handler caught error in maincontroller.addStatus',
+      log:'Query error in maincontroller.addStatus',
       status: 400,
       message: { err: error },
     }));

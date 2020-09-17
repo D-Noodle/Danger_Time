@@ -1,27 +1,28 @@
-body {
+html, body {
   /* background: lightgrey; */
-  background-image: linear-gradient(red, yellow);
+  background-image: linear-gradient(rgb(255, 59, 59), rgb(253, 253, 146));
+  height: 100%;
 }
 
 h1 {
   display: flex;
-  justify-content: center;
-
+  justify-content: start;
+  margin-left: 1.5rem;
+  margin-top: 2rem;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 #outputBoxContainer {
   display: flex;
   justify-content: center;
   align-items: center;
- 
 }
 
 #inputBox {
   display: flex;
   justify-content: center;
   align-items: stretch;
-  padding-bottom: 60px;
-  
+  margin-top: 3rem;
 }
 
 input {
@@ -37,9 +38,15 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  align-items: center;
-  padding: 20px;
+  align-items: start;
+  padding: 0.75rem;
   border: 2px solid black;
   border-radius: 3%;
   margin: 20px;
+  overflow-wrap: anywhere;
+}
+
+#input-output-container {
+  width: 30%;
+  min-width: 15rem;
 }

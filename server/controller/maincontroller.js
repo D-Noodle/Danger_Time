@@ -8,8 +8,7 @@ const db = require('../db/databaseIndex.js');
 
 /* Need to import node library if we want to use fetch in the backend */
 
-/* REQUEST/RESPONSE MIDDLEWARE */
-
+// SAVE NEW URL TO DATABASE
 maincontroller.saveUrl = (req, res, next) => {
   console.log('main.controller.saveURL - inside')
 
@@ -29,7 +28,7 @@ maincontroller.saveUrl = (req, res, next) => {
     }));
 };
 
-/* Checks to see the status code of the URL we added depending on the response we get back */
+//CHECK API URL STATUS...returned object is 200 status else 400 
 maincontroller.pingUrl = (req, res, next) => {
   console.log('main.controller pingURL - inside')
 
@@ -50,6 +49,7 @@ maincontroller.pingUrl = (req, res, next) => {
 
 /* Adds URL attributes to Postgres, but also sends back status to the client so that we can keep track in state */
 
+// ADD NEW URL STATUS RECORD IN DATABASE
 maincontroller.addStatus = (req, res, next) => {
   console.log('main.controller addStatus - inside')
 
@@ -66,6 +66,9 @@ maincontroller.addStatus = (req, res, next) => {
       message: { err: error },
     }));
 };
+
+
+
 
 /* ITERATION OPTION: TASK SCHEDULER MIDDLEWARE */
 

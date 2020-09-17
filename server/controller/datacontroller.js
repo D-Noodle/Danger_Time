@@ -21,23 +21,21 @@ B)all the status codes */
 datacontroller.getData = (req, res, next) => {
   console.log("hello from datacontroller");
   console.log("datacontroller req body", req.body);
-  const { url_id, rows } = req.body;
-  if (!url_id || !rows) {
+  const { url_id } = req.body;
+  if (!url_id) {
     return next({
       log:
         "Express error handler caught error in datacontroller.getData receiving post request from client",
       status: 400,
-      message: { err: error },
+      message: { err: "Error receiving request" },
     });
   }
-  const values = [url_id, rows];
+  const params = [url_id];
   //descending? because we want highest numbers
-  const selectStatus = `SELECT * FROM status 
-    WHERE status.url_id = $1 
-    ORDER BY status_id DESC 
-    LIMIT $2;`;
+  const selectStatus = `SELECT status, time FROM status 
+    WHERE url_id = $1 `;
   const allStatus = "SELECT * FROM status;";
-  db.query(allStatus)
+  db.query(selectStatus, params)
     //will receive an array of objects (called row), each object will correspond to a row, save to res.locals.rows
     .then((data) => {
       // console.log("datacontroller query res", data);

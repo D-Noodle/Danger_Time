@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
-import { loadGraphData } from "../actions/action";
+import * as actions from "../actions/action";
 import { Graph } from "../components/graph/graph";
 
 //this component sits on top of maincontainer or app and will hold graphs
@@ -13,11 +13,10 @@ const mapStateToProps = (state) => ({
 });
 //dummy url-id: 75 (in database)
 const url_id = 75;
-//rows of data, lets user choose how many rows of data they want to visualize
-const rows = 50;
-let statusData;
 
-const mapDispatchToProps = (dispatch) => ({});
+const mapDispatchToProps = (dispatch) => ({
+  loadGraphData: (url_id) => dispatch(actions.loadGraphData(url_id)),
+});
 
 class DataContainer extends Component {
   constructor(props) {
@@ -29,24 +28,27 @@ class DataContainer extends Component {
   //send to backend url-id, and how many rows of data we want to retrieve
   //backend will send back
   componentDidMount() {
-    axios
-      .post("/main/data", { url_id, rows })
-      .then((data) => {
-        //status data in data.data.rows
-        console.log("data container", data.data.rows);
-      })
-      .catch((error) => {
-        console.log("error message from datacontainer", error);
-      });
-    // loadGraphData(url_id, rows);
+    //axios request moved to actions/action.js
+    // axios
+    //   .post("/main/data", { url_id })
+    //   .then((data) => {
+    //     //status data in data.data.rows
+    //     console.log("data container", data.data.rows);
+    //     //const graphData = data.data.rows;
+    //   })
+    //   .catch((error) => {
+    //     console.log("error message from datacontainer", error);
+    //   });
+    this.props.loadGraphData(url_id);
   }
 
   render() {
     //conditional rendering of url data viz boxes, based on which user is logged in
+    const { graphData } = this.props;
     return (
       <div>
         HELLO!!!!
-        <Graph graphData />
+        <Graph graphData={graphData} />
       </div>
     );
   }

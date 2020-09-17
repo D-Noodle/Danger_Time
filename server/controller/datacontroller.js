@@ -30,26 +30,28 @@ datacontroller.getData = (req, res, next) => {
       message: { err: error },
     });
   }
-  // const values = [url_id, rows];
-  // const selectStatus =
-  //   "SELECT * FROM status WHERE status.url_id = $1 ORDER BY status_id DESC LIMIT $2"; //descending? because we want highest numbers
-  // const allStatus = "SELECT * FROM status";
-  // db.query(allStatus)
-  //   //will receive an array of objects (called row), each object will correspond to a row, save to res.locals.rows
-  //   .then((data) => {
-  //     console.log("datacontroller query res", data);
-  //     res.locals = data;
-  //   })
-  //   .catch((error) =>
-  //     next({
-  //       log:
-  //         "Express error handler caught error receiving data from database in datacontroller.getData",
-  //       status: 400,
-  //       message: { err: error },
-  //     })
-  //   );
-
-  next();
+  const values = [url_id, rows];
+  //descending? because we want highest numbers
+  const selectStatus = `SELECT * FROM status 
+    WHERE status.url_id = $1 
+    ORDER BY status_id DESC 
+    LIMIT $2;`;
+  const allStatus = "SELECT * FROM status;";
+  db.query(allStatus)
+    //will receive an array of objects (called row), each object will correspond to a row, save to res.locals.rows
+    .then((data) => {
+      // console.log("datacontroller query res", data);
+      res.locals.data = data;
+      return next();
+    })
+    .catch((error) =>
+      next({
+        log:
+          "Express error handler caught error receiving data from database in datacontroller.getData",
+        status: 400,
+        message: { err: error },
+      })
+    );
 };
 
 module.exports = datacontroller;

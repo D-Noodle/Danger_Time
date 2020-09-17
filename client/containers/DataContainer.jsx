@@ -9,7 +9,7 @@ import { Graph } from "../components/graph/graph";
 const mapStateToProps = (state) => ({
   currentUser: state.outputs.currentUser,
   urlList: state.outputs.urlList,
-  graphData: state.graphData,
+  graphData: state.outputs.graphData,
 });
 //dummy url-id: 75 (in database)
 const url_id = 75;
@@ -32,8 +32,8 @@ class DataContainer extends Component {
     axios
       .post("/main/data", { url_id, rows })
       .then((data) => {
-        console.log("data container", data);
-        // statusData = data;
+        //status data in data.data.rows
+        console.log("data container", data.data.rows);
       })
       .catch((error) => {
         console.log("error message from datacontainer", error);

@@ -9,7 +9,7 @@ const path = require("path");
 const authrouter = require("./router/authrouter");
 const mainrouter = require("./router/mainrouter");
 // const datarouter = require("./router/datarouter");
-// const datacontroller = require("./controller/datacontroller");
+const datacontroller = require("./controller/datacontroller");
 
 /*CORS middleware to prevent CORS policy during POST*/
 app.use(
@@ -42,9 +42,9 @@ app.use("/auth", authrouter);
 
 // handle all other requests
 // receive requests for /data for status data from database
-// app.use("/main/data", datacontroller.getData, (req, res) => {
-//   res.status(200).send("hello");
-// });
+app.use("/main/data", datacontroller.getData, (req, res) => {
+  res.status(200).json(res.locals.data);
+});
 // receive request for /main/historicaldata, /main/addURL, /main/interval, /main/checknow, then direct to /mainrouter
 app.use("/main", mainrouter);
 

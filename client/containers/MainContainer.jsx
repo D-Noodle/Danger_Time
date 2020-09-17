@@ -24,13 +24,12 @@ const MainContainer = (props) => {
     addURL, currentUser, urlList, url_id, url, checkStatus,
   } = props;
   return (
-    <div>
-      <div id="inputboxcontainer">
-        <InputBox
-          addURL={addURL}
-          currentUser={currentUser}
-        />
-      </div>
+    <div id="input-output-container">
+      <InputBox
+        id="inputboxcontainer"
+        addURL={addURL}
+        currentUser={currentUser}
+      />
 
       <div id="outputboxcontainer">
         <OutputBoxContainer

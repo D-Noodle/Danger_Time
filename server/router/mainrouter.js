@@ -31,12 +31,8 @@ router.post(
   maincontroller.pingUrl,
   maincontroller.addStatus,
   (req, res) => {
-    res.status(200).json({
-      status: res.locals.status,
-      url_id: res.locals.url_id,
-    });
-  }
-);
+    res.status(200).json({ url_id: res.locals.url_id, status: res.locals.status });
+  });
 
 /* Once a URL is added, this route handles the functionality of clicking checkNow to check status at any time */
 router.post(

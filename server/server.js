@@ -27,9 +27,9 @@ app.use(express.static(path.resolve(__dirname, './../client')));
 app.use(cors({
   origin: [
     'http://localhost:8080',
-    // 'http://localhost:3000',
+    'http://localhost:3000',
     'http://localhost:3333',
-  ]
+  ],
 }));
 
 // handle authentication requests
@@ -43,7 +43,9 @@ app.use('/main/data', datarouter);
 app.use('/main', mainrouter);
 
 // request to '/', redirect to /authrouter (same as request to /register)
-app.use('/', authrouter);
+app.use('/', (req, res) => {
+  res.status(200).sendFile(path.resolve(__dirname, '../client/index.html'));
+});
 
 // handle unknown path
 app.use((req, res) => {

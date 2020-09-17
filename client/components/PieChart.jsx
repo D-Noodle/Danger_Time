@@ -6,7 +6,7 @@ import { MDBContainer } from 'mdbreact';
 export class PieChart extends React.Component {
   constructor(props) {
     super(props);
-    const { graphData } = this.props;
+    const { graphData, uniqueStatuses, numOfStatuses, } = this.props;
     this.state = {
       graphData,
       dataPie: {

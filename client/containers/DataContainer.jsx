@@ -11,6 +11,8 @@ const mapStateToProps = (state) => ({
   currentUser: state.outputs.currentUser,
   urlList: state.outputs.urlList,
   graphData: state.outputs.graphData,
+  uniqueStatuses: state.outputs.uniqueStatuses,
+  numOfStatuses: state.outputs.numOfStatuses,
 });
 // dummy url-id: 75 (in database)
 const url_id = 75;
@@ -41,21 +43,24 @@ class DataContainer extends Component {
     //   .catch((error) => {
     //     console.log("error message from datacontainer", error);
     //   });
-    const { loadGraphData, getStatusArr } = this.props;
+    const { loadGraphData, getStatusArr, uniqueStatuses, numOfStatuses, } = this.props;
     loadGraphData(url_id);
     getStatusArr();
+    console.log('UNIQUE AND NUM', uniqueStatuses, numOfStatuses);
   }
 
   render() {
     // conditional rendering of url data viz boxes, based on which user is logged in
-    const { graphData, urlList } = this.props;
+    const {
+      graphData, urlList, uniqueStatuses, numOfStatuses,
+    } = this.props;
     return (
       <div id="graph-container">
         <h2 id="graph-container-title">
           Status from API Database
         </h2>
         <Graph graphData={graphData} />
-        <PieChart graphData={graphData} />
+        <PieChart uniqueStatuses={uniqueStatuses} numOfStatuses={numOfStatuses} />
       </div>
     );
   }

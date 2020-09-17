@@ -92,7 +92,6 @@ const outputReducer = (state = initialState, action) => {
           uniqueStatuses.push(obj.status);
         }
       });
-      
       const numOfStatuses = Object.keys(statusObj).map((status) => statusObj[status]);
       return {
         ...state,

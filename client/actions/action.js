@@ -74,7 +74,16 @@ export const loadGraphData = (url_id) => (dispatch) => {
     });
 };
 
-export const getStatusArr = (e) => ({
-  type: types.GET_STATUS_ARR,
-  payload: e,
-});
+// gets entire status table from database
+export const getStatusArr = (e) => (dispatch) => {
+  axios.get('/main/status-table')
+    .then((response) => {
+      dispatch({
+        type: types.GET_STATUS_ARR,
+        payload: response.data,
+      });
+    })
+    .catch((error) => {
+      console.log('error in GET_STATUS_ARR axios request', error);
+    });
+};

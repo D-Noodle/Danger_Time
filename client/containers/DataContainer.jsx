@@ -11,15 +11,15 @@ const mapStateToProps = (state) => ({
   currentUser: state.outputs.currentUser,
   urlList: state.outputs.urlList,
   graphData: state.outputs.graphData,
-  uniqueStatuses: state.outputs.uniqueStatuses,
-  numOfStatuses: state.outputs.numOfStatuses,
+  // uniqueStatuses: state.outputs.uniqueStatuses,
+  // numOfStatuses: state.outputs.numOfStatuses,
 });
 // dummy url-id: 75 (in database)
 const url_id = 75;
 
 const mapDispatchToProps = (dispatch) => ({
   loadGraphData: (url_id) => dispatch(actions.loadGraphData(url_id)),
-  getStatusArr: (e) => dispatch(actions.getStatusArr(e)),
+  // getStatusArr: (e) => dispatch(actions.getStatusArr(e)),
 });
 
 class DataContainer extends Component {
@@ -43,10 +43,10 @@ class DataContainer extends Component {
     //   .catch((error) => {
     //     console.log("error message from datacontainer", error);
     //   });
-    const { loadGraphData, getStatusArr, uniqueStatuses, numOfStatuses, } = this.props;
+    const { loadGraphData } = this.props;
     loadGraphData(url_id);
-    getStatusArr();
-    console.log('UNIQUE AND NUM', uniqueStatuses, numOfStatuses);
+    // getStatusArr();
+    // console.log('UNIQUE AND NUM', uniqueStatuses, numOfStatuses);
   }
 
   render() {
@@ -60,7 +60,7 @@ class DataContainer extends Component {
           Status from API Database
         </h2>
         <Graph graphData={graphData} />
-        <PieChart uniqueStatuses={uniqueStatuses} numOfStatuses={numOfStatuses} />
+        <PieChart />
       </div>
     );
   }

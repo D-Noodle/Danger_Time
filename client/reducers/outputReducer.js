@@ -85,7 +85,7 @@ const outputReducer = (state = initialState, action) => {
     case types.GET_STATUS_ARR: {
       const statusObj = {};
       const uniqueStatuses = [];
-      state.graphData.forEach((obj) => {
+      action.payload.forEach((obj) => {
         if (statusObj.hasOwnProperty(obj.status)) statusObj[obj.status] += 1;
         else {
           statusObj[obj.status] = 1;

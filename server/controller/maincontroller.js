@@ -30,6 +30,7 @@ maincontroller.saveUrl = (req, res, next) => {
 // CHECK API URL STATUS...returned object is 200 status else 400
 maincontroller.pingUrl = (req, res, next) => {
   console.log('main.controller pingURL - inside');
+  console.log(name)
 
   fetch(req.body.url)
     .then((response) => response.json())
@@ -54,7 +55,7 @@ maincontroller.addStatus = (req, res, next) => {
   console.log('main.controller addStatus - inside');
 
   const addStatus = 'INSERT INTO status (url_id,status,time) VALUES ($1, $2, $3)';
-  const params = [res.locals.url_id || req.body.url_id, res.locals.status, Date.now()];
+  const params = [res.locals.url_id || req.body.url_id, res.locals.status, Date().slice(4,24)];
 
   db.query(addStatus, params)
     .then(() => {
@@ -107,6 +108,22 @@ maincontroller.saveStatus = (updatedUrlArr) => {
       })
       .catch((error) => console.log('Error in Task Schduler query: ', error));
   }
+};
+
+// gets entire status table from database
+maincontroller.getStatusTable = (req, res, next) => {
+  const allStatus = `SELECT * FROM status;`;
+  db.query(allStatus)
+    .then((table) => {
+      res.locals.statusTable = table.rows;
+      return next();
+    })
+    .catch((error) => next({
+      log:
+          'Express error handler caught error receiving data from database in maincontroller.getStatusTable',
+      status: 400,
+      message: { err: error },
+    }));
 };
 
 /* Readme/Resources */

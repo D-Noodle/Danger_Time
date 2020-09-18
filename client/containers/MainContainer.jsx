@@ -19,7 +19,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const MainContainer = (props) => {
-  // destructure props here ----------
   const {
     addURL, currentUser, urlList, url_id, url, checkStatus,
   } = props;

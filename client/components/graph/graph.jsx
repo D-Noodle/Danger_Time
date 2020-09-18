@@ -6,6 +6,7 @@ import { extent } from 'd3-array';
 import { transition } from 'd3-transition';
 import Line from './line/line';
 import XYAxis from './axis/xy_axis';
+import {select} from 'd3-selection';
 
 export class Graph extends Component {
   constructor(props) {
@@ -39,10 +40,10 @@ export class Graph extends Component {
   //     }
   //   })
   // }
-  
+
   render() {
     const { graphData } = this.props;
-    /*const graphData = [
+    /* const graphData = [
       { time: "Jan", status: 30 },
       { time: "Feb", status: 10 },
       { time: "Mar", status: 50 },
@@ -55,28 +56,28 @@ export class Graph extends Component {
       { time: "Oct", status: 55 },
       { time: "Nov", status: 60 },
       { time: "Dec", status: 80 },
-    ];*/
+    ]; */
     const parentWidth = 500;
 
     const margins = {
       top: 20,
-      right: 20,
+      right: 40,
       bottom: 20,
-      left: 20,
+      left: 40,
     };
 
     const width = parentWidth - margins.left - margins.right;
     const height = 200 - margins.top - margins.bottom;
 
-    const ticks = 5;
+    const ticks = graphData.length;
     const t = transition().duration(1000);
 
     const xScale = scaleBand()
       .domain(graphData.map((d) => d.time))
-      .rangeRound([0, width]).padding(0.1);
+      .rangeRound([0, width]).padding(1);
 
     const yScale = scaleLinear()
-      .domain(extent(graphData, (d) => d.status))
+      .domain([600, 100])
       .range([height, 0])
       .nice();
 
@@ -92,10 +93,15 @@ export class Graph extends Component {
           className="lineChartSvg"
           width={width + margins.left + margins.right}
           height={height + margins.top + margins.bottom}
+          text="Status"
         >
           <g transform={`translate(${margins.left}, ${margins.top})`}>
-            <XYAxis {...{ xScale, yScale, height, ticks, t }} />
+            <XYAxis {...{
+              xScale, yScale, height, ticks, t,
+            }}
+            />
             <Line
+              id="Line"
               graphData={graphData}
               xScale={xScale}
               yScale={yScale}
@@ -105,6 +111,7 @@ export class Graph extends Component {
             />
           </g>
         </svg>
+        <h3>Time</h3>
       </div>
     );
   }

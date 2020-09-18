@@ -1,10 +1,10 @@
-import axios from "axios";
-import * as types from "../constants/actionTypes";
+import axios from 'axios';
+import * as types from '../constants/actionTypes';
 
 // ADD API URL TO DATABASE
 export const addURL = (username, url) => (dispatch) => {
   axios
-    .post("/main/addURL", { url })
+    .post('/main/addURL', { url })
     .then((result) => {
       dispatch({
         type: types.FINISHED_URL_ADD,
@@ -16,22 +16,26 @@ export const addURL = (username, url) => (dispatch) => {
         },
       });
     })
-    .catch((err) => console.log("addURL action ERROR", err));
+    .catch((err) => console.log('addURL action ERROR', err));
 };
 
 // GET UPDATED API URL STATUS
 export const checkStatus = (url, url_id) => (dispatch) => {
   // **INSERT API URL**
   axios
-    .post("/main/checkStatus", { url: url, url_id: url_id })
+    .post('/main/checkStatus', { url, url_id })
     .then((result) => {
-      console.log("inside checkStatus action POST");
+      console.log('inside checkStatus action POST');
       dispatch({
         type: types.CHECK_NOW,
-        payload: {},
+        payload: {
+          url,
+          url_id: result.data.url_id,
+          status: result.data.status,
+        },
       });
     })
-    .catch((err) => console.log("checkStatus action ERROR", err));
+    .catch((err) => console.log('checkStatus action ERROR', err));
 };
 
 const checkStatusStarted = () => ({
@@ -54,18 +58,32 @@ export const finishedUrlAdd = (addedUrlObj) => ({});
 // Graph data actions
 export const loadGraphData = (url_id) => (dispatch) => {
   axios
-    .post("/main/data", {
+    .post('/main/data', {
       url_id,
     })
     .then((data) => {
-      console.log("data for graph: ", data);
+      console.log('data for graph: ', data);
       const graphData = data.data.rows;
       dispatch({
-        type: "LOAD_GRAPH_DATA",
+        type: 'LOAD_GRAPH_DATA',
         payload: graphData,
       });
     })
     .catch((error) => {
-      console.log("error message", error);
+      console.log('error message', error);
+    });
+};
+
+// gets entire status table from database
+export const getStatusArr = (e) => (dispatch) => {
+  axios.get('/main/status-table')
+    .then((response) => {
+      dispatch({
+        type: types.GET_STATUS_ARR,
+        payload: response.data,
+      });
+    })
+    .catch((error) => {
+      console.log('error in GET_STATUS_ARR axios request', error);
     });
 };

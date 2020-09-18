@@ -20,7 +20,7 @@ B)all the status codes */
 
 datacontroller.getData = (req, res, next) => {
   console.log("hello from datacontroller");
-  console.log("datacontroller req body", req.body);
+  // console.log("datacontroller req body", req.body);
   const { url_id } = req.body;
   if (!url_id) {
     return next({
@@ -38,10 +38,7 @@ datacontroller.getData = (req, res, next) => {
   db.query(selectStatus, params)
     //will receive an array of objects (called row), each object will correspond to a row, save to res.locals.rows
     .then((data) => {
-      console.log("datacontroller query res", data);
-      for (const ping of data.rows) {
-        ping.time = Date(ping.time).slice(3,24) // converts time to readable date and time
-      }
+      // console.log("datacontroller query res", data);
       res.locals.data = data;
       return next();
     })

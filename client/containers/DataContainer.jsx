@@ -12,7 +12,7 @@ const mapStateToProps = (state) => ({
   graphData: state.outputs.graphData,
 });
 //dummy url-id: 75 (in database)
-const url_id = 75;
+const url_id = 97;
 
 const mapDispatchToProps = (dispatch) => ({
   loadGraphData: (url_id) => dispatch(actions.loadGraphData(url_id)),
@@ -34,13 +34,16 @@ class DataContainer extends Component {
   // }
 
   componentDidMount() {
-    this.props.loadGraphData(url_id);
-  }
-  componentDidUpdate() {
-    
+    this.props.loadGraphData(url_id)
+
+    setInterval( ()=>{
+      this.props.loadGraphData(url_id)
+    }, 10000)
   }
 
-  
+  componentWillUnmount(){
+    clearInterval();
+  }  
 
   render() {
     //conditional rendering of url data viz boxes, based on which user is logged in

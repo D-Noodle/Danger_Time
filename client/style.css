@@ -126,6 +126,7 @@ button:hover {
 .graph {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   background-color: #EDDDD4;
   width: 30rem;
   border-radius: 3px;

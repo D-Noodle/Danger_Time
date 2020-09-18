@@ -6,6 +6,7 @@ import { extent } from 'd3-array';
 import { transition } from 'd3-transition';
 import Line from './line/line';
 import XYAxis from './axis/xy_axis';
+import {select} from 'd3-selection';
 
 export class Graph extends Component {
   constructor(props) {
@@ -42,6 +43,7 @@ export class Graph extends Component {
   
   render() {
     const { graphData } = this.props;
+    console.log(graphData)
     /*const graphData = [
       { time: "Jan", status: 30 },
       { time: "Feb", status: 10 },
@@ -73,7 +75,7 @@ export class Graph extends Component {
 
     const xScale = scaleBand()
       .domain(graphData.map((d) => d.time))
-      .rangeRound([0, width]).padding(.05);
+      .rangeRound([0, width]).padding(1);
 
     const yScale = scaleLinear()
       .domain([600, 100])
@@ -88,7 +90,6 @@ export class Graph extends Component {
     return (
       <div className="graph">
         {/* <button onClick={this.randomData}>Randomize data</button> */}
-        <h2>Title</h2>
         <svg
           className="lineChartSvg"
           width={width + margins.left + margins.right}
@@ -98,6 +99,7 @@ export class Graph extends Component {
           <g transform={`translate(${margins.left}, ${margins.top})`}>
             <XYAxis {...{ xScale, yScale, height, ticks, t }} />
             <Line
+              id="Line"
               graphData={graphData}
               xScale={xScale}
               yScale={yScale}

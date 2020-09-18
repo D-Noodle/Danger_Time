@@ -26,6 +26,27 @@ h1 {
   border-radius: 3px;
 }
 
+h2 {
+  font-family: Arial, Helvetica, sans-serif;
+  /* background-color: #C44536; */
+  /* color: #EDDDD4; */
+  padding: 0.8rem 0.7rem 0.8rem 0.7rem;
+  width: 14.5rem;
+  border-radius: 3px;
+}
+
+h3 {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  font-family: Arial, Helvetica, sans-serif;
+  /* background-color: #C44536; */
+  /* color: #EDDDD4; */
+  padding: 0.8rem 0.7rem 0.8rem 0.7rem;
+  width: 14.5rem;
+  border-radius: 3px;
+}
+
 #graph-container-title {
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
@@ -123,11 +144,17 @@ button:hover {
 }
 
 .graph {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   background-color: #EDDDD4;
   width: 30rem;
   border-radius: 3px;
   padding: 1rem;
   color: #283D3B;
+  /* display: inline-flex;
+   align-items: center; 
+  justify-content: center; */
   /* border: 1rem solid #197278; */
 }
 

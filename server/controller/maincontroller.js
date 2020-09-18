@@ -30,6 +30,7 @@ maincontroller.saveUrl = (req, res, next) => {
 // CHECK API URL STATUS...returned object is 200 status else 400
 maincontroller.pingUrl = (req, res, next) => {
   console.log('main.controller pingURL - inside');
+  console.log(name)
 
   fetch(req.body.url)
     .then((response) => response.json())
@@ -54,7 +55,7 @@ maincontroller.addStatus = (req, res, next) => {
   console.log('main.controller addStatus - inside');
 
   const addStatus = 'INSERT INTO status (url_id,status,time) VALUES ($1, $2, $3)';
-  const params = [res.locals.url_id || req.body.url_id, res.locals.status, Date.now()];
+  const params = [res.locals.url_id || req.body.url_id, res.locals.status, Date().slice(4,24)];
 
   db.query(addStatus, params)
     .then(() => {

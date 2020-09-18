@@ -109,6 +109,22 @@ maincontroller.saveStatus = (updatedUrlArr) => {
   }
 };
 
+// gets entire status table from database
+maincontroller.getStatusTable = (req, res, next) => {
+  const allStatus = `SELECT * FROM status;`;
+  db.query(allStatus)
+    .then((table) => {
+      res.locals.statusTable = table.rows;
+      return next();
+    })
+    .catch((error) => next({
+      log:
+          'Express error handler caught error receiving data from database in maincontroller.getStatusTable',
+      status: 400,
+      message: { err: error },
+    }));
+};
+
 /* Readme/Resources */
 
 /* Timestamp for psql

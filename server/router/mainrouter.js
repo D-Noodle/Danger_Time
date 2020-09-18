@@ -48,6 +48,12 @@ router.post(
   },
 );
 
+// gets and returns entire status table from database
+router.get('/status-table',
+  maincontroller.getStatusTable,
+  (req, res) => {
+    res.status(200).json(res.locals.statusTable);
+  });
 /* STRETCH */
 
 /* Provide more visual context for each endpoint, user clicks and historical graphs are shown */

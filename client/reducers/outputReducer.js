@@ -1,31 +1,33 @@
-import * as types from "../constants/actionTypes";
+import * as types from '../constants/actionTypes';
 
 const initialState = {
   /* Dummy Data this would be for pulling from DB */
   urlList: [
     {
-      username: "Lucy",
-      url: "www.yahoo.com",
+      username: 'Lucy',
+      url: 'www.yahoo.com',
       status: 400,
       url_id: 80,
     },
     {
-      username: "Chris",
-      url: "www.coinbase.com",
+      username: 'Chris',
+      url: 'www.coinbase.com',
       status: 400,
       url_id: 81,
     },
     {
-      username: "Joon",
-      url: "www.facebook.com",
+      username: 'Joon',
+      url: 'www.facebook.com',
       status: 400,
       url_id: 90,
     },
   ],
-  newEndpoint: "",
-  status: "",
-  currentUser: "",
+  newEndpoint: '',
+  status: '',
+  currentUser: '',
   graphData: [],
+  uniqueStatuses: [],
+  numOfStatuses: [],
 };
 
 const outputReducer = (state = initialState, action) => {
@@ -77,6 +79,24 @@ const outputReducer = (state = initialState, action) => {
       return {
         ...state,
         graphData: newGraphData,
+      };
+    }
+
+    case types.GET_STATUS_ARR: {
+      const statusObj = {};
+      const uniqueStatuses = [];
+      action.payload.forEach((obj) => {
+        if (statusObj.hasOwnProperty(obj.status)) statusObj[obj.status] += 1;
+        else {
+          statusObj[obj.status] = 1;
+          uniqueStatuses.push(obj.status);
+        }
+      });
+      const numOfStatuses = Object.keys(statusObj).map((status) => statusObj[status]);
+      return {
+        ...state,
+        uniqueStatuses,
+        numOfStatuses,
       };
     }
 

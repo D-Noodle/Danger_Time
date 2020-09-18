@@ -7,13 +7,16 @@ class Line extends React.Component {
     super();
     this.ref = React.createRef();
   }
+
   componentDidMount() {
     const node = this.ref.current;
-    const { xScale, yScale, graphData, lineGenerator } = this.props;
+    const {
+      xScale, yScale, graphData, lineGenerator,
+    } = this.props;
 
-    const initialData = graphData.map(d => ({
+    const initialData = graphData.map((d) => ({
       name: d.name,
-      value: 0
+      value: 0,
     }));
 
     select(node)
@@ -38,15 +41,17 @@ class Line extends React.Component {
     //   .attr('cx', (d, key) => xScale(key))
     //   .attr('cy', d => yScale(d.count));
 
-    this.updateChart()
+    this.updateChart();
   }
+
   componentDidUpdate() {
     this.updateChart();
   }
+
   updateChart() {
     const {
-          lineGenerator, xScale, yScale, graphData,
-        } = this.props;
+      lineGenerator, xScale, yScale, graphData,
+    } = this.props;
 
     const t = transition().duration(1000);
 
@@ -64,6 +69,7 @@ class Line extends React.Component {
     //   .attr('cx', (d, key) => xScale(key))
     //   .attr('cy', d => yScale(d.count));
   }
+
   render() {
     return <g className="line-group" ref={this.ref} />;
   }

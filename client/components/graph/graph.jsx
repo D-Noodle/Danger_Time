@@ -40,11 +40,10 @@ export class Graph extends Component {
   //     }
   //   })
   // }
-  
+
   render() {
     const { graphData } = this.props;
-    console.log(graphData)
-    /*const graphData = [
+    /* const graphData = [
       { time: "Jan", status: 30 },
       { time: "Feb", status: 10 },
       { time: "Mar", status: 50 },
@@ -57,7 +56,7 @@ export class Graph extends Component {
       { time: "Oct", status: 55 },
       { time: "Nov", status: 60 },
       { time: "Dec", status: 80 },
-    ];*/
+    ]; */
     const parentWidth = 500;
 
     const margins = {
@@ -97,7 +96,10 @@ export class Graph extends Component {
           text="Status"
         >
           <g transform={`translate(${margins.left}, ${margins.top})`}>
-            <XYAxis {...{ xScale, yScale, height, ticks, t }} />
+            <XYAxis {...{
+              xScale, yScale, height, ticks, t,
+            }}
+            />
             <Line
               id="Line"
               graphData={graphData}

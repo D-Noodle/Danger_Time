@@ -3,7 +3,7 @@ const cors = require("cors");
 const cron = require('node-cron')
 const app = express();
 const PORT = 3333;
-const path = require("path");
+const path = require('path');
 
 const db = require('./db/databaseIndex.js');
 const fetch = require('node-fetch')
@@ -59,15 +59,15 @@ const updateGraph = setInterval(() => {
 
 
 // request to '/', redirect to /authrouter (same as request to /register)
-app.use("/", authrouter);
+app.use('/', authrouter);
 
 // handle authentication requests
 // server recieves request to /auth/login or /auth/register, then direct to /authrouter
-app.use("/auth", authrouter);
+app.use('/auth', authrouter);
 
 // handle all other requests
 // receive requests for /data for status data from database
-app.use("/main/data", datacontroller.getData, (req, res) => {
+app.use('/main/data', datacontroller.getData, (req, res) => {
   res.status(200).json(res.locals.data);
 });
 // receive request for /main/historicaldata, /main/addURL, /main/interval, /main/checknow, then direct to /mainrouter
@@ -76,19 +76,19 @@ app.use("/main", mainrouter);
 
 // handle unknown path
 app.use((req, res) => {
-  res.status(404).send("Not Found");
+  res.status(404).send('Not Found');
 });
 
 // error handler
 app.use((err, req, res, next) => {
   const defaultErr = {
-    log: "Express error handler caught unknown error",
+    log: 'Express error handler caught unknown error',
     status: 400,
-    message: { err: "an error occured" },
+    message: { err: 'an error occured' },
   };
 
   const errorObj = Object.assign(defaultErr, err);
-  console.log("error", errorObj.log);
+  console.log('error', errorObj.log);
   res.status(errorObj.status || 500).send(errorObj.message);
 });
 
